@@ -17,8 +17,13 @@ namespace ACProject.Controls
         public BlockOverview(IBlock block)
         {
             InitializeComponent();
-
+            
             tbBlocksCount.Text = block.Count.ToString();
+        }
+
+        private void OnLoad(object sender, EventArgs e)
+        {
+            //this.Dock = DockStyle.Fill;
         }
     }
 }

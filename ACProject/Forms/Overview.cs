@@ -23,15 +23,13 @@ namespace ACProject.Forms
             InitializeComponent();
 
             this.WindowState = FormWindowState.Maximized;
-            tabBlocksOverview.TabPages.Clear();
             var count = 0;
 
             foreach (var block in _blocks)
             {
                 var blockOverviewControl = new BlockOverview(block);
-                var tab = new TabPage("tab" +count);
-                tab.Controls.Add(blockOverviewControl);
-                tabBlocksOverview.TabPages.Add(tab);
+                // var tab = new TabPage("tab" +count);
+                panelBlocksOverview.Controls.Add(blockOverviewControl);
                 count++;
             }
         }

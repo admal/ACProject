@@ -33,11 +33,9 @@
             this.label1 = new System.Windows.Forms.Label();
             this.tbFilePath = new System.Windows.Forms.TextBox();
             this.btnLoadFile = new System.Windows.Forms.Button();
-            this.tabBlocksOverview = new System.Windows.Forms.TabControl();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.panelBlocksOverview = new System.Windows.Forms.FlowLayoutPanel();
             this.tableLayoutPanel1.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
-            this.tabBlocksOverview.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -45,7 +43,7 @@
             this.tableLayoutPanel1.ColumnCount = 1;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.Controls.Add(this.flowLayoutPanel1, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.tabBlocksOverview, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.panelBlocksOverview, 0, 1);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -94,25 +92,16 @@
             this.btnLoadFile.Text = "Choose";
             this.btnLoadFile.UseVisualStyleBackColor = true;
             // 
-            // tabBlocksOverview
+            // panelBlocksOverview
             // 
-            this.tabBlocksOverview.Controls.Add(this.tabPage1);
-            this.tabBlocksOverview.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabBlocksOverview.Location = new System.Drawing.Point(3, 43);
-            this.tabBlocksOverview.Name = "tabBlocksOverview";
-            this.tabBlocksOverview.SelectedIndex = 0;
-            this.tabBlocksOverview.Size = new System.Drawing.Size(1066, 729);
-            this.tabBlocksOverview.TabIndex = 1;
-            // 
-            // tabPage1
-            // 
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(1058, 703);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "tabPage1";
-            this.tabPage1.UseVisualStyleBackColor = true;
+            this.panelBlocksOverview.AutoScroll = true;
+            this.panelBlocksOverview.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelBlocksOverview.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+            this.panelBlocksOverview.Location = new System.Drawing.Point(3, 43);
+            this.panelBlocksOverview.Name = "panelBlocksOverview";
+            this.panelBlocksOverview.Size = new System.Drawing.Size(1066, 709);
+            this.panelBlocksOverview.TabIndex = 1;
+            this.panelBlocksOverview.WrapContents = false;
             // 
             // Overview
             // 
@@ -125,7 +114,6 @@
             this.tableLayoutPanel1.ResumeLayout(false);
             this.flowLayoutPanel1.ResumeLayout(false);
             this.flowLayoutPanel1.PerformLayout();
-            this.tabBlocksOverview.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -137,7 +125,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox tbFilePath;
         private System.Windows.Forms.Button btnLoadFile;
-        private System.Windows.Forms.TabControl tabBlocksOverview;
-        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.FlowLayoutPanel panelBlocksOverview;
     }
 }
