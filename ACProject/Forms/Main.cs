@@ -15,6 +15,19 @@ namespace ACProject.Forms
         public Main()
         {
             InitializeComponent();
+
+            this.WindowState = FormWindowState.Maximized;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void showBlocksOverview(object sender, EventArgs e)
+        {
+            var overviewForm = new Overview();
+            overviewForm.ShowDialog();
         }
     }
 }
