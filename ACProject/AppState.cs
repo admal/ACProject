@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using ACProject.Domain.Demo;
 using ACProject.Domain.Models;
 
@@ -9,6 +10,13 @@ namespace ACProject
         private static AppState _instance;
 
         private IList<IBlock> _blocks;
+        private uint _width = 30;
+
+        public uint Width
+        {
+            get { return _width; }
+            set { _width = value; }
+        }
 
         public IList<IBlock> Blocks
         {
@@ -17,12 +25,13 @@ namespace ACProject
 
         protected AppState()
         {
+            var rnd = new Random();
             _blocks = new List<IBlock>();
             for (int i = 0; i < 5; i++)
             {
                 _blocks.Add(new DummyBlock
                 {
-                    Count = i
+                    Count = rnd.Next(1, 12)
                 });
             }
         }

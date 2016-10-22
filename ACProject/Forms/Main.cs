@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ACProject.UIHelpers;
 
 namespace ACProject.Forms
 {
@@ -17,17 +18,30 @@ namespace ACProject.Forms
             InitializeComponent();
 
             this.WindowState = FormWindowState.Maximized;
+
+            tbWidth.Text = AppState.Instance.Width.ToString();
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-
-        }
+        
 
         private void showBlocksOverview(object sender, EventArgs e)
         {
             var overviewForm = new Overview();
             overviewForm.ShowDialog();
+        }
+
+        private void Apply(object sender, EventArgs e)
+        {
+            try
+            {
+                var input = tbWidth.Text;
+                var width = uint.Parse(input);
+                AppState.Instance.Width = width;
+            }
+            catch (Exception)
+            {
+                MessageBoxService.ShowError("Invalid operation!");
+            }
         }
     }
 }

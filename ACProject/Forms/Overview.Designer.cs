@@ -91,6 +91,7 @@
             this.btnLoadFile.TabIndex = 2;
             this.btnLoadFile.Text = "Choose";
             this.btnLoadFile.UseVisualStyleBackColor = true;
+            this.btnLoadFile.Click += new System.EventHandler(this.ChooseBlockFile);
             // 
             // panelBlocksOverview
             // 

@@ -88,6 +88,7 @@
             this.tbBlocksCount.Name = "tbBlocksCount";
             this.tbBlocksCount.Size = new System.Drawing.Size(52, 38);
             this.tbBlocksCount.TabIndex = 1;
+            this.tbBlocksCount.TextChanged += new System.EventHandler(this.OnInputChange);
             // 
             // BlockOverview
             // 

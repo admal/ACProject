@@ -67,6 +67,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UIHelpers\MessageBoxService.cs" />
     <EmbeddedResource Include="Controls\BlockOverview.resx">
       <DependentUpon>BlockOverview.cs</DependentUpon>
     </EmbeddedResource>

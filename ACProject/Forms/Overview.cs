@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using ACProject.Controls;
 using ACProject.Domain.Demo;
 using ACProject.Domain.Models;
+using ACProject.UIHelpers;
 
 namespace ACProject.Forms
 {
@@ -32,6 +33,19 @@ namespace ACProject.Forms
                 panelBlocksOverview.Controls.Add(blockOverviewControl);
                 count++;
             }
+        }
+
+        private void ChooseBlockFile(object sender, EventArgs e)
+        {
+            OpenFileDialog dialog = new OpenFileDialog();
+            dialog.Filter = "block files (*.blk)|*.blk|All files (*.*)|*.*";
+
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                MessageBoxService.ShowInfo("Selected: " + dialog.FileName);
+                tbFilePath.Text = dialog.FileName;
+            }
+
         }
     }
 }
