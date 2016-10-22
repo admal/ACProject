@@ -42,5 +42,36 @@ namespace ACProject.Controls
                 MessageBoxService.ShowError("Invalid operation!");
             }
         }
+
+        private void OnPaint(object sender, PaintEventArgs e)
+        {
+            
+            Graphics graphics = e.Graphics;
+
+            var width = blockView.Width;
+            var height = blockView.Height;
+
+            var blockWidth = _block.Grid.GetLength(0);
+            var blockHeight = _block.Grid.GetLength(1);
+
+            int cellWidth = width / blockWidth;
+            int cellHeight = height / blockHeight;
+
+            using (SolidBrush brush = new SolidBrush(Color.Gray))
+            {
+                for (int i = 0; i < blockHeight; i++)
+                {
+                    for (int j = 0; j < blockWidth; j++)
+                    {
+                        if (_block.Grid[j, i] == 1)
+                        {
+                            var rect = new Rectangle(cellWidth * i, cellHeight * j, cellWidth, cellHeight);
+                            graphics.FillRectangle(brush, rect);
+
+                        }
+                    }
+                }
+            }
+        }
     }
 }

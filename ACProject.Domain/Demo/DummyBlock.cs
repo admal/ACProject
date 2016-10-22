@@ -16,5 +16,7 @@ namespace ACProject.Domain.Demo
             get { return _count; }
             set { _count = value; }
         }
+
+        public int[,] Grid { get; set; }
     }
 }
