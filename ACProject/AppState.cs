@@ -27,13 +27,16 @@ namespace ACProject
         {
             var rnd = new Random();
             _blocks = new List<IBlock>();
-            for (int i = 0; i < 5; i++)
+            for (int i = 0; i < 3; i++)
             {
                 _blocks.Add(new DummyBlock
                 {
                     Count = rnd.Next(1, 12)
                 });
             }
+            _blocks[0].Grid = new int[3, 3] {{1, 0, 0}, {1, 1, 0}, {1, 0, 0}};
+            _blocks[1].Grid = new int[3, 3] {{0, 0, 0}, {1, 1, 1}, {0, 0, 0}};
+            _blocks[2].Grid = new int[3, 3] {{1, 1, 1}, {1, 1, 1}, {1, 1, 1}};
         }
 
         public static AppState Instance
