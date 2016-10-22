@@ -1,8 +1,12 @@
-﻿namespace ACProject.Domain.Models
+﻿using System.Collections.Generic;
+using System.Drawing;
+
+namespace ACProject.Domain.Models
 {
     public interface IBlock
     {
         int Count { get; set; }
         int[,] Grid { get; set; }
+        void Draw(Graphics graphics, Brush brush, Point position, int cellSize);
     }
 }
