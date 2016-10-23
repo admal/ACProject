@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using ACProject.UIHelpers;
 using System.IO;
+using ACProject.Domain.Models;
 
 namespace ACProject.Forms
 {
@@ -24,6 +25,7 @@ namespace ACProject.Forms
         private SimulationState _simulationState = SimulationState.NotStarted;
         private int _cellSize;
         private uint _width;
+        private IList<IBlock> _shownBlocks; 
         public Main()
         {
             InitializeComponent();
@@ -32,7 +34,7 @@ namespace ACProject.Forms
 
             tbWidth.Text = AppState.Instance.Width.ToString();
             _width = AppState.Instance.Width;
-
+            _shownBlocks = new List<IBlock>();
             EnableButtons();
         }
 
@@ -74,7 +76,25 @@ namespace ACProject.Forms
         private void showBlocksOverview(object sender, EventArgs e)
         {
             var overviewForm = new Overview();
-            overviewForm.ShowDialog();
+            overviewForm.ShowDialog(this);
+        }
+
+        public void UpdateGrid()
+        {
+            if (_simulationState == SimulationState.NotStarted)
+            {
+                _shownBlocks.Clear();
+                tbWidth.Text = AppState.Instance.Width.ToString();
+                _width = AppState.Instance.Width;
+                _cellSize = (int) (panelCanvas.Width/_width);
+
+                panelCanvas.Invalidate();
+            }
+            else
+            {
+                MessageBoxService.ShowError("Configuration not saved! You must stop simulation first!");
+            }
+
         }
 
         private void Apply(object sender, EventArgs e)
@@ -113,13 +133,16 @@ namespace ACProject.Forms
                     }
                 }
             }
-         
-
             using (var brush = new SolidBrush(Color.Gray))
             {
-                blocks[0].Draw(graphics, brush, new Point(0*cellSize, 1*cellSize), cellSize);
-                blocks[1].Draw(graphics, brush, new Point(3*cellSize, 1*cellSize), cellSize);
-                blocks[2].Draw(graphics, brush, new Point(20*cellSize, 5*cellSize), cellSize);
+                var rnd = new Random();
+                foreach (var block in _shownBlocks)
+                {
+                    int posX = rnd.Next(0, (int) _width - AppState.Instance.MaxBlockWidth);
+                    int posY = rnd.Next(0, viewHeight - AppState.Instance.MaxBlockWidth);
+
+                    block.Draw(graphics, brush, new Point(posX * cellSize, posY * cellSize), cellSize );
+                }
             }
         }
 
@@ -141,8 +164,14 @@ namespace ACProject.Forms
             EnableButtons();
         }
 
+        private int counter = 0;
+
         private void MoveOneStepSimulation(object sender, EventArgs e)
         {
+            _shownBlocks.Add(AppState.Instance.Blocks[counter]);
+            counter =(++counter) % AppState.Instance.Blocks.Count;
+
+            panelCanvas.Invalidate();
         }
 
         private void loadToolStripMenuItem_Click(object sender, EventArgs e)

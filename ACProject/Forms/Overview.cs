@@ -28,7 +28,7 @@ namespace ACProject.Forms
 
             foreach (var block in _blocks)
             {
-                var blockOverviewControl = new BlockOverview(block);
+                var blockOverviewControl = new BlockOverview(block, AppState.Instance.MaxBlockWidth);
                 // var tab = new TabPage("tab" +count);
                 panelBlocksOverview.Controls.Add(blockOverviewControl);
                 count++;
@@ -41,7 +41,7 @@ namespace ACProject.Forms
             var count = 0;
             foreach (var block in _blocks)
             {
-                var blockOverviewControl = new BlockOverview(block);
+                var blockOverviewControl = new BlockOverview(block, AppState.Instance.MaxBlockWidth);
                 // var tab = new TabPage("tab" +count);
                 panelBlocksOverview.Controls.Add(blockOverviewControl);
                 count++;
@@ -56,6 +56,7 @@ namespace ACProject.Forms
             if (dialog.ShowDialog() == DialogResult.OK)
             {
                 string filename = dialog.FileName;
+                tbFilePath.Text = filename;
                 try
                 {
                     AppState.Instance.LoadInitial(filename);
@@ -65,6 +66,12 @@ namespace ACProject.Forms
                 {
                 }
             }
+        }
+
+        private void OnClose(object sender, FormClosedEventArgs e)
+        {
+            var main = this.Owner as Main;
+            main.UpdateGrid();
         }
     }
 }

@@ -16,10 +16,12 @@ namespace ACProject.Controls
     public partial class BlockOverview : UserControl
     {
         private IBlock _block;
-        public BlockOverview(IBlock block)
+        private int _maxBlockWidth;
+        public BlockOverview(IBlock block, int maxBlockWidth)
         {
             InitializeComponent();
             _block = block;
+            _maxBlockWidth = maxBlockWidth;
             tbBlocksCount.Text = block.Count.ToString();
         }
 
@@ -52,8 +54,19 @@ namespace ACProject.Controls
 
             var blockWidth = _block.Grid.GetLength(0);
 
-            int cellSize = width / blockWidth;
+            int cellSize = width / _maxBlockWidth;
 
+            using (var pen = new Pen(Color.Black))
+            {
+
+                for (int i = 0; i < _maxBlockWidth; i++)
+                {
+                    for (int j = 0; j < _maxBlockWidth; j++)
+                    {
+                        graphics.DrawRectangle(pen, i * cellSize, j * cellSize, cellSize, cellSize);
+                    }
+                }
+            }
             using (var brush = new SolidBrush(Color.Gray))
             {
                 _block.Draw(graphics, brush, new Point(0,0), cellSize);

@@ -40,16 +40,16 @@
             // mainContainer
             // 
             this.mainContainer.ColumnCount = 2;
-            this.mainContainer.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 35.24735F));
-            this.mainContainer.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 64.75265F));
+            this.mainContainer.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.mainContainer.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 90F));
             this.mainContainer.Controls.Add(this.blockView, 0, 0);
             this.mainContainer.Controls.Add(this.panelButtons, 1, 0);
             this.mainContainer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.mainContainer.Location = new System.Drawing.Point(0, 0);
             this.mainContainer.Name = "mainContainer";
             this.mainContainer.RowCount = 1;
-            this.mainContainer.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.mainContainer.Size = new System.Drawing.Size(1132, 391);
+            this.mainContainer.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.mainContainer.Size = new System.Drawing.Size(504, 307);
             this.mainContainer.TabIndex = 0;
             // 
             // blockView
@@ -57,7 +57,7 @@
             this.blockView.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.blockView.Location = new System.Drawing.Point(3, 3);
             this.blockView.Name = "blockView";
-            this.blockView.Size = new System.Drawing.Size(385, 385);
+            this.blockView.Size = new System.Drawing.Size(300, 300);
             this.blockView.TabIndex = 0;
             this.blockView.Paint += new System.Windows.Forms.PaintEventHandler(this.OnPaint);
             // 
@@ -66,9 +66,9 @@
             this.panelButtons.Controls.Add(this.lblBlockCount);
             this.panelButtons.Controls.Add(this.tbBlocksCount);
             this.panelButtons.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelButtons.Location = new System.Drawing.Point(401, 3);
+            this.panelButtons.Location = new System.Drawing.Point(309, 3);
             this.panelButtons.Name = "panelButtons";
-            this.panelButtons.Size = new System.Drawing.Size(728, 385);
+            this.panelButtons.Size = new System.Drawing.Size(192, 301);
             this.panelButtons.TabIndex = 1;
             // 
             // lblBlockCount
@@ -97,7 +97,7 @@
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.Controls.Add(this.mainContainer);
             this.Name = "BlockOverview";
-            this.Size = new System.Drawing.Size(1132, 391);
+            this.Size = new System.Drawing.Size(504, 307);
             this.Load += new System.EventHandler(this.OnLoad);
             this.mainContainer.ResumeLayout(false);
             this.panelButtons.ResumeLayout(false);

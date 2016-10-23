@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using ACProject.Domain.Demo;
 using ACProject.Domain.Models;
 using System.IO;
+using System.Linq;
 
 namespace ACProject
 {
@@ -22,6 +23,11 @@ namespace ACProject
         public IList<IBlock> Blocks
         {
             get { return _blocks; }
+        }
+
+        public int MaxBlockWidth
+        {
+            get { return _blocks.Max(x => x.Grid.GetLength(0)); }
         }
 
         protected AppState()

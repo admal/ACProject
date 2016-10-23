@@ -27,7 +27,7 @@ namespace ACProject.Domain.Demo
                 {
                     if (this.Grid[j, i] == 1)
                     {
-                        var rect = new Rectangle( position.X +(cellSize * i), position.Y + (cellSize * j), cellSize, cellSize);
+                        var rect = new Rectangle( position.X +(cellSize * i) + 1, position.Y + (cellSize * j) + 1, cellSize - 1, cellSize - 1);
                         graphics.FillRectangle(brush, rect);
 
                     }
