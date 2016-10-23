@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ACProject.UIHelpers;
+using System.IO;
 
 namespace ACProject.Forms
 {
@@ -141,6 +142,10 @@ namespace ACProject.Forms
         }
 
         private void MoveOneStepSimulation(object sender, EventArgs e)
+        {
+        }
+
+        private void loadToolStripMenuItem_Click(object sender, EventArgs e)
         {
         }
 

@@ -34,5 +34,11 @@ namespace ACProject.Domain.Demo
                 }
             }
         }
+
+        public DummyBlock(int width, int height)
+        {
+            this.Count = 1;
+            this.Grid = new int[width, height];
+        }
     }
 }

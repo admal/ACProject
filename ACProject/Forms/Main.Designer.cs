@@ -63,7 +63,7 @@
             this.mainContainer.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 90F));
             this.mainContainer.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
             this.mainContainer.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.mainContainer.Size = new System.Drawing.Size(1354, 805);
+            this.mainContainer.Size = new System.Drawing.Size(1354, 750);
             this.mainContainer.TabIndex = 0;
             // 
             // panelCanvas
@@ -72,7 +72,7 @@
             this.panelCanvas.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panelCanvas.Location = new System.Drawing.Point(3, 3);
             this.panelCanvas.Name = "panelCanvas";
-            this.panelCanvas.Size = new System.Drawing.Size(1348, 718);
+            this.panelCanvas.Size = new System.Drawing.Size(1348, 669);
             this.panelCanvas.TabIndex = 2;
             this.panelCanvas.Paint += new System.Windows.Forms.PaintEventHandler(this.OnPaint);
             // 
@@ -86,9 +86,9 @@
             this.panelButtons.Controls.Add(this.tbWidth);
             this.panelButtons.Controls.Add(this.btnApply);
             this.panelButtons.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelButtons.Location = new System.Drawing.Point(3, 727);
+            this.panelButtons.Location = new System.Drawing.Point(3, 678);
             this.panelButtons.Name = "panelButtons";
-            this.panelButtons.Size = new System.Drawing.Size(1348, 75);
+            this.panelButtons.Size = new System.Drawing.Size(1348, 69);
             this.panelButtons.TabIndex = 1;
             // 
             // btnStart
@@ -173,19 +173,20 @@
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.saveToolStripMenuItem.Text = "Save";
             // 
             // loadToolStripMenuItem
             // 
             this.loadToolStripMenuItem.Name = "loadToolStripMenuItem";
-            this.loadToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
+            this.loadToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.loadToolStripMenuItem.Text = "Load";
+            this.loadToolStripMenuItem.Click += new System.EventHandler(this.loadToolStripMenuItem_Click);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             // 
             // blocksToolStripMenuItem
@@ -218,7 +219,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1354, 805);
+            this.ClientSize = new System.Drawing.Size(1354, 750);
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.mainContainer);
             this.MainMenuStrip = this.menuStrip1;
