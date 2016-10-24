@@ -173,7 +173,8 @@ namespace ACProject.Forms
         private void OnPaint(object sender, PaintEventArgs e)
         {
             panelCanvas = tabBoards.Controls[0].Controls[0];
-            _cellSize = 15;// (int)(control.Width / _width);
+            var control = sender as Control;
+            _cellSize = 15 < (int)(control.Width / _width) ? 15 : (int)(control.Width / _width);
 
             var graphics = e.Graphics;
 
@@ -191,14 +192,14 @@ namespace ACProject.Forms
                     }
                 }
             }
-                var rnd = new Random();
-                foreach (var block in _shownBlocks)
-                {
-                    int posX = rnd.Next(0, (int) _width - AppState.Instance.MaxBlockSize);
-                    int posY = rnd.Next(0, viewHeight - AppState.Instance.MaxBlockSize);
+            var rnd = new Random();
+            foreach (var block in _shownBlocks)
+            {
+                int posX = rnd.Next(0, (int) _width - AppState.Instance.MaxBlockSize);
+                int posY = rnd.Next(0, viewHeight - AppState.Instance.MaxBlockSize);
 
-                    block.Draw(graphics, new Point(posX * cellSize, posY * cellSize), cellSize );
-                }
+                block.Draw(graphics, new Point(posX*cellSize, posY*cellSize), cellSize);
+            }
         }
 
         private void StartSimulation(object sender, EventArgs e)
