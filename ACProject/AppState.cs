@@ -25,9 +25,14 @@ namespace ACProject
             get { return _blocks; }
         }
 
-        public int MaxBlockWidth
+        public int MaxBlockSize
         {
-            get { return _blocks.Max(x => x.Grid.GetLength(0)); }
+            get
+            {
+                var maxWidth = _blocks.Max(x => x.Grid.GetLength(0));
+                var maxHeight = _blocks.Max(x => x.Grid.GetLength(1));
+                return maxWidth > maxHeight ? maxWidth : maxHeight;
+            }
         }
 
         protected AppState()

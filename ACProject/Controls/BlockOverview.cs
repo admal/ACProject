@@ -67,10 +67,8 @@ namespace ACProject.Controls
                     }
                 }
             }
-            using (var brush = new SolidBrush(Color.Gray))
-            {
-                _block.Draw(graphics, brush, new Point(0,0), cellSize);
-            }
+            _block.Draw(graphics, new Point(0,0), cellSize);
+            
             
         }
     }

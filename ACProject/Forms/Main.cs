@@ -133,17 +133,14 @@ namespace ACProject.Forms
                     }
                 }
             }
-            using (var brush = new SolidBrush(Color.Gray))
-            {
                 var rnd = new Random();
                 foreach (var block in _shownBlocks)
                 {
-                    int posX = rnd.Next(0, (int) _width - AppState.Instance.MaxBlockWidth);
-                    int posY = rnd.Next(0, viewHeight - AppState.Instance.MaxBlockWidth);
+                    int posX = rnd.Next(0, (int) _width - AppState.Instance.MaxBlockSize);
+                    int posY = rnd.Next(0, viewHeight - AppState.Instance.MaxBlockSize);
 
-                    block.Draw(graphics, brush, new Point(posX * cellSize, posY * cellSize), cellSize );
+                    block.Draw(graphics, new Point(posX * cellSize, posY * cellSize), cellSize );
                 }
-            }
         }
 
         private void StartSimulation(object sender, EventArgs e)

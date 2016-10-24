@@ -33,8 +33,8 @@
             this.label1 = new System.Windows.Forms.Label();
             this.tbFilePath = new System.Windows.Forms.TextBox();
             this.btnLoadFile = new System.Windows.Forms.Button();
-            this.panelBlocksOverview = new System.Windows.Forms.FlowLayoutPanel();
             this.btnSave = new System.Windows.Forms.Button();
+            this.panelBlocksOverview = new System.Windows.Forms.FlowLayoutPanel();
             this.tableLayoutPanel1.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
@@ -95,6 +95,16 @@
             this.btnLoadFile.UseVisualStyleBackColor = true;
             this.btnLoadFile.Click += new System.EventHandler(this.ChooseBlockFile);
             // 
+            // btnSave
+            // 
+            this.btnSave.Location = new System.Drawing.Point(779, 3);
+            this.btnSave.Name = "btnSave";
+            this.btnSave.Size = new System.Drawing.Size(101, 23);
+            this.btnSave.TabIndex = 3;
+            this.btnSave.Text = "Save and Close";
+            this.btnSave.UseVisualStyleBackColor = true;
+            this.btnSave.Click += new System.EventHandler(this.SaveAndExit);
+            // 
             // panelBlocksOverview
             // 
             this.panelBlocksOverview.AutoScroll = true;
@@ -103,15 +113,6 @@
             this.panelBlocksOverview.Name = "panelBlocksOverview";
             this.panelBlocksOverview.Size = new System.Drawing.Size(1066, 709);
             this.panelBlocksOverview.TabIndex = 1;
-            // 
-            // btnSave
-            // 
-            this.btnSave.Location = new System.Drawing.Point(779, 3);
-            this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(75, 23);
-            this.btnSave.TabIndex = 3;
-            this.btnSave.Text = "Save and Close";
-            this.btnSave.UseVisualStyleBackColor = true;
             // 
             // Overview
             // 

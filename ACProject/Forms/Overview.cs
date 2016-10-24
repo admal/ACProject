@@ -28,7 +28,7 @@ namespace ACProject.Forms
 
             foreach (var block in _blocks)
             {
-                var blockOverviewControl = new BlockOverview(block, AppState.Instance.MaxBlockWidth);
+                var blockOverviewControl = new BlockOverview(block, AppState.Instance.MaxBlockSize);
                 // var tab = new TabPage("tab" +count);
                 panelBlocksOverview.Controls.Add(blockOverviewControl);
                 count++;
@@ -41,7 +41,7 @@ namespace ACProject.Forms
             var count = 0;
             foreach (var block in _blocks)
             {
-                var blockOverviewControl = new BlockOverview(block, AppState.Instance.MaxBlockWidth);
+                var blockOverviewControl = new BlockOverview(block, AppState.Instance.MaxBlockSize);
                 // var tab = new TabPage("tab" +count);
                 panelBlocksOverview.Controls.Add(blockOverviewControl);
                 count++;
@@ -72,6 +72,11 @@ namespace ACProject.Forms
         {
             var main = this.Owner as Main;
             main.UpdateGrid();
+        }
+
+        private void SaveAndExit(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

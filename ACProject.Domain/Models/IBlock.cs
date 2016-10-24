@@ -8,5 +8,6 @@ namespace ACProject.Domain.Models
         int Count { get; set; }
         int[,] Grid { get; set; }
         void Draw(Graphics graphics, Brush brush, Point position, int cellSize);
+        void Draw(Graphics graphics, Point position, int cellSize);
     }
 }

@@ -10,7 +10,15 @@ namespace ACProject.Domain.Demo
 {
     public class DummyBlock : IBlock
     {
+        private static readonly Random rnd = new Random();
         private int _count;
+        private Color _color;
+
+        public Color Color
+        {
+            get { return _color; }
+            set { _color = value; }
+        }
 
         public int Count
         {
@@ -35,8 +43,18 @@ namespace ACProject.Domain.Demo
             }
         }
 
+        public void Draw(Graphics graphics, Point position, int cellSize)
+        {
+            using (var brush = new SolidBrush(_color))
+            {
+                this.Draw(graphics, brush, position, cellSize);
+            }
+        }
+
         public DummyBlock(int width, int height)
         {
+            _color = Color.FromArgb(rnd.Next(0, 255), rnd.Next(0, 255), rnd.Next(0, 255));
+
             this.Count = 1;
             this.Grid = new int[width, height];
         }
