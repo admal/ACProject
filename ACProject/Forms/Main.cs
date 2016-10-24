@@ -22,10 +22,12 @@ namespace ACProject.Forms
 
     public partial class Main : Form
     {
+        private Control panelCanvas;
         private SimulationState _simulationState = SimulationState.NotStarted;
         private int _cellSize;
         private uint _width;
-        private IList<IBlock> _shownBlocks; 
+        private IList<IBlock> _shownBlocks;
+        private int _k;
         public Main()
         {
             InitializeComponent();
@@ -35,12 +37,14 @@ namespace ACProject.Forms
             tbWidth.Text = AppState.Instance.Width.ToString();
             _width = AppState.Instance.Width;
             _shownBlocks = new List<IBlock>();
+            _k = 1;
+            tbK.Text = _k.ToString();
             EnableButtons();
         }
 
         private void OnWindowLoad(object sender, EventArgs e)
         {
-            _cellSize = (int)(panelCanvas.Width / _width);
+            GenerateBoards();
         }
 
         private void EnableButtons()
@@ -83,12 +87,16 @@ namespace ACProject.Forms
         {
             if (_simulationState == SimulationState.NotStarted)
             {
+                GenerateBoards();
+
                 _shownBlocks.Clear();
                 tbWidth.Text = AppState.Instance.Width.ToString();
                 _width = AppState.Instance.Width;
-                _cellSize = (int) (panelCanvas.Width/_width);
+                panelCanvas = tabBoards.Controls[0].Controls[0];
 
-                panelCanvas.Invalidate();
+                //_cellSize = (int) (panelCanvas.Width/_width);
+
+               panelCanvas.Invalidate();
             }
             else
             {
@@ -103,7 +111,13 @@ namespace ACProject.Forms
             {
                 var input = tbWidth.Text;
                 var width = uint.Parse(input);
+                _k = int.Parse(tbK.Text);
+
+                GenerateBoards();
+
                 AppState.Instance.Width = width;
+
+
                 _width = width;
                 _cellSize = (int)(panelCanvas.Width / _width);
                 panelCanvas.Invalidate();
@@ -114,10 +128,54 @@ namespace ACProject.Forms
             }
         }
 
+        private void GenerateBoards()
+        {
+            tabBoards.TabPages.Clear();
+            tabBoards.Controls.Clear();
+
+            TabPage currentTab = null;
+            for (int i = 0; i < _k; i++)
+            {
+                
+                if (i%4 == 0)
+                {
+                    var grid = new TableLayoutPanel
+                    {
+                        RowCount = 2,
+                        ColumnCount = 2,
+                        ColumnStyles = {new ColumnStyle(SizeType.Percent, 50), new ColumnStyle(SizeType.Percent, 50)},
+                        RowStyles = {new RowStyle(SizeType.Percent, 50), new RowStyle(SizeType.Percent, 50)},
+                        GrowStyle = TableLayoutPanelGrowStyle.FixedSize,
+                        Dock = DockStyle.Fill
+                    };
+
+                    currentTab = new TabPage("tab");
+                    currentTab.Dock = DockStyle.Fill;
+                    
+                    currentTab.Controls.Add(grid);
+                    tabBoards.TabPages.Add(currentTab);
+                }
+
+                var currGrid = currentTab.Controls[0];
+                var newBoard = new Panel
+                {
+                    Dock = DockStyle.Fill,
+                    BackColor = Color.AntiqueWhite,
+                    BorderStyle = BorderStyle.FixedSingle
+                };
+                newBoard.Paint += OnPaint;
+                
+                currGrid.Controls.Add(newBoard);
+            }
+
+        }
+
         private void OnPaint(object sender, PaintEventArgs e)
         {
+            panelCanvas = tabBoards.Controls[0].Controls[0];
+            _cellSize = 15;// (int)(control.Width / _width);
+
             var graphics = e.Graphics;
-            var blocks = AppState.Instance.Blocks;
 
             var cellSize = _cellSize;
 

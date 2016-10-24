@@ -35,10 +35,6 @@
             this.blocksToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.overviewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.tabControl1 = new System.Windows.Forms.TabControl();
-            this.btnApply = new System.Windows.Forms.Button();
             this.tbWidth = new System.Windows.Forms.TextBox();
             this.lblWidth = new System.Windows.Forms.Label();
             this.btnNextStep = new System.Windows.Forms.Button();
@@ -46,16 +42,12 @@
             this.btnPause = new System.Windows.Forms.Button();
             this.btnStart = new System.Windows.Forms.Button();
             this.panelButtons = new System.Windows.Forms.FlowLayoutPanel();
-            this.tablePanels = new System.Windows.Forms.TableLayoutPanel();
-            this.panelCanvas = new System.Windows.Forms.Panel();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.panel3 = new System.Windows.Forms.Panel();
+            this.lblK = new System.Windows.Forms.Label();
+            this.tbK = new System.Windows.Forms.TextBox();
+            this.btnApply = new System.Windows.Forms.Button();
+            this.tabBoards = new System.Windows.Forms.TabControl();
             this.menuStrip1.SuspendLayout();
-            this.tabPage1.SuspendLayout();
-            this.tabControl1.SuspendLayout();
             this.panelButtons.SuspendLayout();
-            this.tablePanels.SuspendLayout();
             this.SuspendLayout();
             // 
             // fileToolStripMenuItem
@@ -71,20 +63,20 @@
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
             this.saveToolStripMenuItem.Text = "Save";
             // 
             // loadToolStripMenuItem
             // 
             this.loadToolStripMenuItem.Name = "loadToolStripMenuItem";
-            this.loadToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.loadToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
             this.loadToolStripMenuItem.Text = "Load";
             this.loadToolStripMenuItem.Click += new System.EventHandler(this.loadToolStripMenuItem_Click);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             // 
             // blocksToolStripMenuItem
@@ -98,7 +90,7 @@
             // overviewToolStripMenuItem
             // 
             this.overviewToolStripMenuItem.Name = "overviewToolStripMenuItem";
-            this.overviewToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.overviewToolStripMenuItem.Size = new System.Drawing.Size(123, 22);
             this.overviewToolStripMenuItem.Text = "Overview";
             this.overviewToolStripMenuItem.Click += new System.EventHandler(this.showBlocksOverview);
             // 
@@ -109,51 +101,9 @@
             this.blocksToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(673, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(922, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
-            // 
-            // tabPage2
-            // 
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
-            this.tabPage2.Name = "tabPage2";
-            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(665, 336);
-            this.tabPage2.TabIndex = 1;
-            this.tabPage2.Text = "tabPage2";
-            this.tabPage2.UseVisualStyleBackColor = true;
-            // 
-            // tabPage1
-            // 
-            this.tabPage1.Controls.Add(this.tablePanels);
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
-            this.tabPage1.Name = "tabPage1";
-            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(665, 336);
-            this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "tabPage1";
-            this.tabPage1.UseVisualStyleBackColor = true;
-            // 
-            // tabControl1
-            // 
-            this.tabControl1.Controls.Add(this.tabPage1);
-            this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tabControl1.Location = new System.Drawing.Point(0, 24);
-            this.tabControl1.Name = "tabControl1";
-            this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(673, 362);
-            this.tabControl1.TabIndex = 2;
-            // 
-            // btnApply
-            // 
-            this.btnApply.Location = new System.Drawing.Point(477, 3);
-            this.btnApply.Name = "btnApply";
-            this.btnApply.Size = new System.Drawing.Size(75, 23);
-            this.btnApply.TabIndex = 6;
-            this.btnApply.Text = "Apply";
-            this.btnApply.UseVisualStyleBackColor = true;
-            this.btnApply.Click += new System.EventHandler(this.Apply);
             // 
             // tbWidth
             // 
@@ -222,79 +172,59 @@
             this.panelButtons.Controls.Add(this.btnNextStep);
             this.panelButtons.Controls.Add(this.lblWidth);
             this.panelButtons.Controls.Add(this.tbWidth);
+            this.panelButtons.Controls.Add(this.lblK);
+            this.panelButtons.Controls.Add(this.tbK);
             this.panelButtons.Controls.Add(this.btnApply);
             this.panelButtons.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panelButtons.Location = new System.Drawing.Point(0, 386);
+            this.panelButtons.Location = new System.Drawing.Point(0, 533);
             this.panelButtons.Name = "panelButtons";
-            this.panelButtons.Size = new System.Drawing.Size(673, 33);
+            this.panelButtons.Size = new System.Drawing.Size(922, 33);
             this.panelButtons.TabIndex = 1;
             // 
-            // tablePanels
+            // lblK
             // 
-            this.tablePanels.ColumnCount = 2;
-            this.tablePanels.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tablePanels.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tablePanels.Controls.Add(this.panel3, 1, 1);
-            this.tablePanels.Controls.Add(this.panel2, 0, 1);
-            this.tablePanels.Controls.Add(this.panel1, 1, 0);
-            this.tablePanels.Controls.Add(this.panelCanvas, 0, 0);
-            this.tablePanels.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tablePanels.GrowStyle = System.Windows.Forms.TableLayoutPanelGrowStyle.FixedSize;
-            this.tablePanels.Location = new System.Drawing.Point(3, 3);
-            this.tablePanels.Name = "tablePanels";
-            this.tablePanels.RowCount = 2;
-            this.tablePanels.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tablePanels.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tablePanels.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-            this.tablePanels.Size = new System.Drawing.Size(659, 330);
-            this.tablePanels.TabIndex = 0;
+            this.lblK.AutoSize = true;
+            this.lblK.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.lblK.Location = new System.Drawing.Point(477, 0);
+            this.lblK.Name = "lblK";
+            this.lblK.Padding = new System.Windows.Forms.Padding(5);
+            this.lblK.Size = new System.Drawing.Size(157, 35);
+            this.lblK.TabIndex = 7;
+            this.lblK.Text = "Parallel boards:";
             // 
-            // panelCanvas
+            // tbK
             // 
-            this.panelCanvas.BackColor = System.Drawing.SystemColors.ButtonShadow;
-            this.panelCanvas.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelCanvas.Location = new System.Drawing.Point(3, 3);
-            this.panelCanvas.Name = "panelCanvas";
-            this.panelCanvas.Size = new System.Drawing.Size(323, 159);
-            this.panelCanvas.TabIndex = 4;
-            this.panelCanvas.Paint += new System.Windows.Forms.PaintEventHandler(this.OnPaint);
+            this.tbK.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.tbK.Location = new System.Drawing.Point(640, 3);
+            this.tbK.Name = "tbK";
+            this.tbK.Size = new System.Drawing.Size(59, 24);
+            this.tbK.TabIndex = 8;
             // 
-            // panel1
+            // btnApply
             // 
-            this.panel1.BackColor = System.Drawing.SystemColors.ButtonShadow;
-            this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel1.Location = new System.Drawing.Point(332, 3);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(324, 159);
-            this.panel1.TabIndex = 5;
-            this.panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.OnPaint);
+            this.btnApply.Location = new System.Drawing.Point(705, 3);
+            this.btnApply.Name = "btnApply";
+            this.btnApply.Size = new System.Drawing.Size(75, 23);
+            this.btnApply.TabIndex = 9;
+            this.btnApply.Text = "Apply";
+            this.btnApply.UseVisualStyleBackColor = true;
+            this.btnApply.Click += new System.EventHandler(this.Apply);
             // 
-            // panel2
+            // tabBoards
             // 
-            this.panel2.BackColor = System.Drawing.SystemColors.ButtonShadow;
-            this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(3, 168);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(323, 159);
-            this.panel2.TabIndex = 6;
-            this.panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.OnPaint);
-            // 
-            // panel3
-            // 
-            this.panel3.BackColor = System.Drawing.SystemColors.ButtonShadow;
-            this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel3.Location = new System.Drawing.Point(332, 168);
-            this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(324, 159);
-            this.panel3.TabIndex = 7;
-            this.panel3.Paint += new System.Windows.Forms.PaintEventHandler(this.OnPaint);
+            this.tabBoards.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tabBoards.Location = new System.Drawing.Point(0, 24);
+            this.tabBoards.Name = "tabBoards";
+            this.tabBoards.SelectedIndex = 0;
+            this.tabBoards.Size = new System.Drawing.Size(922, 509);
+            this.tabBoards.TabIndex = 2;
             // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(673, 419);
-            this.Controls.Add(this.tabControl1);
+            this.ClientSize = new System.Drawing.Size(922, 566);
+            this.Controls.Add(this.tabBoards);
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.panelButtons);
             this.MainMenuStrip = this.menuStrip1;
@@ -303,11 +233,8 @@
             this.Load += new System.EventHandler(this.OnWindowLoad);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            this.tabPage1.ResumeLayout(false);
-            this.tabControl1.ResumeLayout(false);
             this.panelButtons.ResumeLayout(false);
             this.panelButtons.PerformLayout();
-            this.tablePanels.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -321,10 +248,6 @@
         private System.Windows.Forms.ToolStripMenuItem blocksToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem overviewToolStripMenuItem;
         private System.Windows.Forms.MenuStrip menuStrip1;
-        private System.Windows.Forms.TabPage tabPage2;
-        private System.Windows.Forms.TabPage tabPage1;
-        private System.Windows.Forms.TabControl tabControl1;
-        private System.Windows.Forms.Button btnApply;
         private System.Windows.Forms.TextBox tbWidth;
         private System.Windows.Forms.Label lblWidth;
         private System.Windows.Forms.Button btnNextStep;
@@ -332,10 +255,9 @@
         private System.Windows.Forms.Button btnPause;
         private System.Windows.Forms.Button btnStart;
         private System.Windows.Forms.FlowLayoutPanel panelButtons;
-        private System.Windows.Forms.TableLayoutPanel tablePanels;
-        private System.Windows.Forms.Panel panel3;
-        private System.Windows.Forms.Panel panel2;
-        private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Panel panelCanvas;
+        private System.Windows.Forms.Label lblK;
+        private System.Windows.Forms.TextBox tbK;
+        private System.Windows.Forms.Button btnApply;
+        private System.Windows.Forms.TabControl tabBoards;
     }
 }
