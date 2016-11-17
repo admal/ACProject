@@ -5,9 +5,9 @@ namespace ACProject.Domain.Models
 {
     public interface IBlock
     {
-        int Count { get; set; }
         int[,] Grid { get; set; }
-        void Draw(Graphics graphics, Brush brush, Point position, int cellSize);
-        void Draw(Graphics graphics, Point position, int cellSize);
+        Color Color { get; set; }
+        int Count { get; set; }
+        void Draw(Graphics graphics, int cellSize);
     }
 }

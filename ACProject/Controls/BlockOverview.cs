@@ -7,7 +7,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using ACProject.Domain.Demo;
 using ACProject.Domain.Models;
 using ACProject.UIHelpers;
 
@@ -67,7 +66,7 @@ namespace ACProject.Controls
                     }
                 }
             }
-            _block.Draw(graphics, new Point(0,0), cellSize);
+            _block.Draw(graphics, cellSize);
             
             
         }

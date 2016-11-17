@@ -42,8 +42,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Demo\DummyBlock.cs" />
+    <Compile Include="Models\Block.cs" />
+    <Compile Include="Models\BoardBlock.cs" />
     <Compile Include="Models\IBlock.cs" />
+    <Compile Include="Models\IBoardBlock.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

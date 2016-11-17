@@ -26,7 +26,7 @@ namespace ACProject.Forms
         private SimulationState _simulationState = SimulationState.NotStarted;
         private int _cellSize;
         private uint _width;
-        private IList<IBlock> _shownBlocks;
+        private IList<IBoardBlock> _shownBlocks;
         private int _k;
         public Main()
         {
@@ -36,7 +36,7 @@ namespace ACProject.Forms
 
             tbWidth.Text = AppState.Instance.Width.ToString();
             _width = AppState.Instance.Width;
-            _shownBlocks = new List<IBlock>();
+            _shownBlocks = new List<IBoardBlock>();
             _k = 1;
             tbK.Text = _k.ToString();
             EnableButtons();
@@ -193,13 +193,21 @@ namespace ACProject.Forms
                 }
             }
             var rnd = new Random();
-            foreach (var block in _shownBlocks)
+            if (_shownBlocks.Count != 0)
             {
-                int posX = rnd.Next(0, (int) _width - AppState.Instance.MaxBlockSize);
-                int posY = rnd.Next(0, viewHeight - AppState.Instance.MaxBlockSize);
-
-                block.Draw(graphics, new Point(posX*cellSize, posY*cellSize), cellSize);
+                var boardBlock = new BoardBlock(_shownBlocks[0], new Point(0, 0));
+                boardBlock.RotateClockwise();
+                boardBlock.Draw(graphics, cellSize); // have to use BoardBlock to draw now
             }
+            //foreach (var block in _shownBlocks)
+            //{
+            //    int posX = rnd.Next(0, (int) _width - AppState.Instance.MaxBlockSize);
+            //    int posY = rnd.Next(0, viewHeight - AppState.Instance.MaxBlockSize);
+
+            //    var boardBlock = new BoardBlock(block, new Point(posX * cellSize, posY * cellSize));
+            //    boardBlock.RotateCounterClockwise();
+            //    boardBlock.Draw(graphics, cellSize); // have to use BoardBlock to draw now
+            //}
         }
 
         private void StartSimulation(object sender, EventArgs e)
@@ -224,7 +232,7 @@ namespace ACProject.Forms
 
         private void MoveOneStepSimulation(object sender, EventArgs e)
         {
-            _shownBlocks.Add(AppState.Instance.Blocks[counter]);
+            _shownBlocks.Add(new BoardBlock(AppState.Instance.Blocks[counter], new Point(0, 0))); // at this point position of a block shuld be known
             counter =(++counter) % AppState.Instance.Blocks.Count;
 
             panelCanvas.Invalidate();

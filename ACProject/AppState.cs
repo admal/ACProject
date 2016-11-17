@@ -1,18 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
-using ACProject.Domain.Demo;
 using ACProject.Domain.Models;
 using System.IO;
 using System.Linq;
+using System.Runtime.Serialization;
 
 namespace ACProject
 {
-    public class AppState
+    public class AppState : ISerializable
     {
         private static AppState _instance;
 
         private IList<IBlock> _blocks;
         private uint _width = 30;
+        private IList<IBoardBlock> _boardBlocks;
 
         public uint Width
         {
@@ -24,6 +25,11 @@ namespace ACProject
         {
             get { return _blocks; }
         }
+
+        public IList<IBoardBlock> BoardBlocks
+        {
+            get { return _boardBlocks;  }
+        } 
 
         public int MaxBlockSize
         {
@@ -41,7 +47,7 @@ namespace ACProject
             _blocks = new List<IBlock>();
             for (int i = 0; i < 3; i++)
             {
-                _blocks.Add(new DummyBlock(3,3)
+                _blocks.Add(new Block(3,3)
                 {
                     Count = rnd.Next(1, 12)
                 });
@@ -71,7 +77,7 @@ namespace ACProject
                 int numOfBlocks = 0;
                 int blockHeight = 0;
                 int currRowNo = 0;
-                IBlock currentBlock = new DummyBlock(1,1);
+                IBlock currentBlock = new BoardBlock(1,1);
                 while ((line = sr.ReadLine()) != null)
                 {
                     switch (state)
@@ -84,7 +90,7 @@ namespace ACProject
                             break;
                         case 1:
                             string[] vals1 = line.Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries);
-                            currentBlock = new DummyBlock(int.Parse(vals1[0]), int.Parse(vals1[1]));
+                            currentBlock = new Block(int.Parse(vals1[0]), int.Parse(vals1[1]));
                             blockHeight = int.Parse(vals1[1]);
                             state = 2;
                             currRowNo = 0;
@@ -107,6 +113,12 @@ namespace ACProject
                     }
                 }
             }
+        }
+
+        public void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            //have to serialize both (display and base) lists of blocks
+            throw new NotImplementedException();
         }
     }
 }
