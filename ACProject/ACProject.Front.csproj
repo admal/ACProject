@@ -102,6 +102,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\ACProject.Algorithm\ACProject.Algorithm.csproj">
+      <Project>{b263c8d1-40be-4c1e-b357-e1b857892ba4}</Project>
+      <Name>ACProject.Algorithm</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ACProject.Domain\ACProject.Domain.csproj">
       <Project>{04d11c61-e3bc-495b-aae5-650b222e9d2c}</Project>
       <Name>ACProject.Domain</Name>
