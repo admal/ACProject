@@ -17,8 +17,9 @@ namespace ACProject.Algorithm
         private const double B = 0.3d;
         private const double C = 0.9d;
         public int K { get; set; }
-        public BoardState(int width)
+        public BoardState(int width, int k)
         {
+            K = k;
             Width = width;
             Heights = new int[Width];
         }
