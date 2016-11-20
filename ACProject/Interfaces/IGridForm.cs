@@ -6,7 +6,7 @@ namespace ACProject.Interfaces
 {
     public interface IGridForm : ISynchronizeInvoke
     {
-        IList<IBoardBlock> Blocks { get; set; }
+        //IList<IBoardBlock> Blocks { get; set; }
         void UpdateGrid();
     }
 }

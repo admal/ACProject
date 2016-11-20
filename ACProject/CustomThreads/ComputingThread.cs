@@ -15,13 +15,13 @@ namespace ACProject.CustomThreads
         private int _width;
         private IGridForm _form;
 
-        public ComputingThread(int k, IList<IBoardBlock> blocks, int width, IGridForm form)
-        {
-            _k = k;
-            _blocks = blocks;
-            _width = width;
-            _form = form;
-        }
+        //public ComputingThread(int k, IList<IBoardBlock> blocks, int width, IGridForm form)
+        //{
+        //    _k = k;
+        //    _blocks = blocks;
+        //    _width = width;
+        //    _form = form;
+        //}
 
         public void StartComputations()
         {

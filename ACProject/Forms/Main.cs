@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using ACProject.UIHelpers;
 using System.IO;
 using System.Threading;
+using ACProject.Algorithm;
 using ACProject.CustomThreads;
 using ACProject.Domain.Models;
 using ACProject.Interfaces;
@@ -30,8 +31,9 @@ namespace ACProject.Forms
         private SimulationState _simulationState = SimulationState.NotStarted;
         private int _cellSize;
         private uint _width;
-        private IList<IBoardBlock> _shownBlocks;
+        private IList<IList<IBoardBlock> >_shownBlocks;
         private int _k;
+        private bool _computing = false;
         public Main()
         {
             InitializeComponent();
@@ -40,7 +42,8 @@ namespace ACProject.Forms
 
             tbWidth.Text = AppState.Instance.Width.ToString();
             _width = AppState.Instance.Width;
-            _shownBlocks = new List<IBoardBlock>();
+            _shownBlocks = new List<IList<IBoardBlock>>();
+            _shownBlocks.Add(new List<IBoardBlock>());
             _k = 1;
             tbK.Text = _k.ToString();
             EnableButtons();
@@ -94,6 +97,10 @@ namespace ACProject.Forms
                 GenerateBoards();
 
                 _shownBlocks.Clear();
+                for (int i = 0; i < _k; i++)
+                {
+                    _shownBlocks.Add(new List<IBoardBlock>());
+                }
                 tbWidth.Text = AppState.Instance.Width.ToString();
                 _width = AppState.Instance.Width;
                 panelCanvas = tabBoards.Controls[0].Controls[0];
@@ -142,7 +149,8 @@ namespace ACProject.Forms
             TabPage currentTab = null;
             for (int i = 0; i < _k; i++)
             {
-                
+                _shownBlocks.Add(new List<IBoardBlock>());
+
                 if (i % onPageGridCount == 0)
                 {
                     var grid = new TableLayoutPanel
@@ -175,6 +183,7 @@ namespace ACProject.Forms
                     BackColor = Color.AntiqueWhite,
                     BorderStyle = BorderStyle.FixedSingle
                 };
+                newBoard.Tag = i;
                 newBoard.Paint += OnPaint;
                 
                 currGrid.Controls.Add(newBoard);
@@ -206,41 +215,41 @@ namespace ACProject.Forms
                     graphics.DrawLine(pen, x * cellSize, 0, x * cellSize, viewHeight * cellSize);
                 }
             }
-            var rnd = new Random();
-            if (_shownBlocks.Count != 0)
+           
+            //drawing blocks
+            var board = sender as Control;
+            int tabIndex = (int) board.Tag;
+            using (var brush = new SolidBrush(Color.Aqua))
             {
-                var boardBlock = new BoardBlock(_shownBlocks[0], new Point(0, 0));
-                boardBlock.RotateClockwise();
-                boardBlock.Draw(graphics, cellSize); // have to use BoardBlock to draw now
+                var blocks = _shownBlocks[tabIndex];
+                foreach (var block in blocks)
+                {
+                    block.Draw(graphics, brush, cellSize);
+                }
             }
-            //foreach (var block in _shownBlocks)
-            //{
-            //    int posX = rnd.Next(0, (int) _width - AppState.Instance.MaxBlockSize);
-            //    int posY = rnd.Next(0, viewHeight - AppState.Instance.MaxBlockSize);
-
-            //    var boardBlock = new BoardBlock(block, new Point(posX * cellSize, posY * cellSize));
-            //    boardBlock.RotateCounterClockwise();
-            //    boardBlock.Draw(graphics, cellSize); // have to use BoardBlock to draw now
-            //}
+    
         }
 
         private void StartSimulation(object sender, EventArgs e)
         {
             _simulationState = SimulationState.Started;
             EnableButtons();
-
+            _computing = true;
             backgroundWorker.RunWorkerAsync();
         }
 
         private void PauseSimulation(object sender, EventArgs e)
         {
             _simulationState = SimulationState.Paused;
+            _computing = false;
             EnableButtons();
         }
 
         private void ResetSimulation(object sender, EventArgs e)
         {
             _simulationState = SimulationState.NotStarted;
+            _computing = false;
+            InitGrid();
             EnableButtons();
         }
 
@@ -248,9 +257,6 @@ namespace ACProject.Forms
 
         private void MoveOneStepSimulation(object sender, EventArgs e)
         {
-            _shownBlocks.Add(new BoardBlock(AppState.Instance.Blocks[counter], new Point(0, 0))); // at this point position of a block shuld be known
-            counter =(++counter) % AppState.Instance.Blocks.Count;
-
             panelCanvas.Invalidate();
         }
 
@@ -258,32 +264,58 @@ namespace ACProject.Forms
         {
         }
 
-        public IList<IBoardBlock> Blocks
-        {
-            get { return _shownBlocks; }
-            set { _shownBlocks = value; }
-        }
+        //public IList<IBoardBlock> Blocks
+        //{
+        //    get { return _shownBlocks; }
+        //    set { _shownBlocks = value; }
+        //}
 
         public void UpdateGrid()
         {
-            panelCanvas.Controls.Clear();
+            panelCanvas.Invalidate();
         }
 
         private void DoBackgroundWork(object sender, DoWorkEventArgs e)
         {
-            Debug.WriteLine("Starting tasks...");
-            this.UseWaitCursor = true;
-            var taskList = new List<Task>();
-            for (int i = 0; i < _k; i++)
+            while (_computing)
             {
-                var thread = new ComputingThread(_k, AppState.Instance.BoardBlocks, (int)_width, this);
-                var task = Task.Factory.StartNew(thread.StartComputations);
-                taskList.Add(task);
+                Debug.WriteLine("Starting tasks...");
+                this.UseWaitCursor = true;
+                //var taskList = new List<Task>();
+                //for (int i = 0; i < _k; i++)
+                //{
+                //    var thread = new ComputingThread(_k, AppState.Instance.Blocks, (int)_width, this);
+                //    var task = Task.Factory.StartNew(thread.StartComputations);
+                //    taskList.Add(task);
+                //}
+                //Task.WaitAll(taskList.ToArray());
+
+                var solver = new Solver(AppState.Instance.Blocks.Select(b => new MultipleBlock()
+                {
+                    Count = b.Count,
+                    Block = b
+                }).ToList(), (int)_width);
+                var nextBlock = AppState.Instance.Blocks.FirstOrDefault(x => x.Count != 0);
+                if (nextBlock == null)
+                {
+                    MessageBoxService.ShowInfo("Computation ended!");
+                    _computing = false;
+                    return;
+                }
+                nextBlock.Count--;
+                var ret = solver.GetNextMoves(new BoardBlock(nextBlock, new Point()));
+                foreach (var move in ret)
+                {
+                    _shownBlocks[move.Board].Add(move.Block);
+                }
+
+                UpdateGrid();
+                this.UseWaitCursor = false;
+                //FIND MINIMUM FROM PIOTR'S DATA
+                Debug.WriteLine("All finished");
+                Thread.Sleep(1000);
             }
-            Task.WaitAll(taskList.ToArray());
-            this.UseWaitCursor = false;
-            //FIND MINIMUM FROM PIOTR'S DATA
-            Debug.WriteLine("All finished");
+
         }
     }
 }

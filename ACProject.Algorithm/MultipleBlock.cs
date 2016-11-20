@@ -9,7 +9,7 @@ namespace ACProject.Algorithm
 {
     public class MultipleBlock
     {
-        IBlock Block { get; set; }
+        public IBlock Block { get; set; }
         public int Count { get; set; }
     }
 }
