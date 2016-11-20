@@ -70,7 +70,7 @@ namespace ACProject.Forms
         private void OnClose(object sender, FormClosedEventArgs e)
         {
             var main = this.Owner as Main;
-            main.UpdateGrid();
+            main.InitGrid();
         }
 
         private void SaveAndExit(object sender, EventArgs e)

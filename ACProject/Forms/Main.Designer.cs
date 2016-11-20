@@ -46,6 +46,7 @@
             this.tbK = new System.Windows.Forms.TextBox();
             this.btnApply = new System.Windows.Forms.Button();
             this.tabBoards = new System.Windows.Forms.TabControl();
+            this.backgroundWorker = new System.ComponentModel.BackgroundWorker();
             this.menuStrip1.SuspendLayout();
             this.panelButtons.SuspendLayout();
             this.SuspendLayout();
@@ -219,6 +220,10 @@
             this.tabBoards.Size = new System.Drawing.Size(922, 509);
             this.tabBoards.TabIndex = 2;
             // 
+            // backgroundWorker
+            // 
+            this.backgroundWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.DoBackgroundWork);
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -259,5 +264,6 @@
         private System.Windows.Forms.TextBox tbK;
         private System.Windows.Forms.Button btnApply;
         private System.Windows.Forms.TabControl tabBoards;
+        private System.ComponentModel.BackgroundWorker backgroundWorker;
     }
 }

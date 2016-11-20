@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -9,7 +10,10 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using ACProject.UIHelpers;
 using System.IO;
+using System.Threading;
+using ACProject.CustomThreads;
 using ACProject.Domain.Models;
+using ACProject.Interfaces;
 
 namespace ACProject.Forms
 {
@@ -20,7 +24,7 @@ namespace ACProject.Forms
         Paused
     }
 
-    public partial class Main : Form
+    public partial class Main : Form, IGridForm
     {
         private Control panelCanvas;
         private SimulationState _simulationState = SimulationState.NotStarted;
@@ -83,7 +87,7 @@ namespace ACProject.Forms
             overviewForm.ShowDialog(this);
         }
 
-        public void UpdateGrid()
+        public void InitGrid()
         {
             if (_simulationState == SimulationState.NotStarted)
             {
@@ -130,6 +134,8 @@ namespace ACProject.Forms
 
         private void GenerateBoards()
         {
+            int onPageGridCount = 2;
+
             tabBoards.TabPages.Clear();
             tabBoards.Controls.Clear();
 
@@ -137,14 +143,20 @@ namespace ACProject.Forms
             for (int i = 0; i < _k; i++)
             {
                 
-                if (i%4 == 0)
+                if (i % onPageGridCount == 0)
                 {
                     var grid = new TableLayoutPanel
                     {
-                        RowCount = 2,
+                        RowCount = 1,
                         ColumnCount = 2,
-                        ColumnStyles = {new ColumnStyle(SizeType.Percent, 50), new ColumnStyle(SizeType.Percent, 50)},
-                        RowStyles = {new RowStyle(SizeType.Percent, 50), new RowStyle(SizeType.Percent, 50)},
+                        ColumnStyles =
+                        {
+                            new ColumnStyle(SizeType.Percent, 50),
+                            new ColumnStyle(SizeType.Percent, 50),
+                            //new ColumnStyle(SizeType.Percent, 25),
+                            //new ColumnStyle(SizeType.Percent, 25)
+                        },
+                        RowStyles = {new RowStyle(SizeType.Percent, 100)},
                         GrowStyle = TableLayoutPanelGrowStyle.FixedSize,
                         Dock = DockStyle.Fill
                     };
@@ -184,12 +196,14 @@ namespace ACProject.Forms
 
             using (var pen = new Pen(Color.Black))
             {
-                for (int i = 0; i < _width; i++)
+                for (int y = 0; y < viewHeight; ++y)
                 {
-                    for (int j = 0; j < viewHeight; j++)
-                    {
-                        graphics.DrawRectangle(pen, new Rectangle(i * cellSize, j * cellSize, cellSize, cellSize));
-                    }
+                    graphics.DrawLine(pen, 0, y * cellSize, _width * cellSize, y * cellSize);
+                }
+
+                for (int x = 0; x < _width + 1; ++x)
+                {
+                    graphics.DrawLine(pen, x * cellSize, 0, x * cellSize, viewHeight * cellSize);
                 }
             }
             var rnd = new Random();
@@ -214,6 +228,8 @@ namespace ACProject.Forms
         {
             _simulationState = SimulationState.Started;
             EnableButtons();
+
+            backgroundWorker.RunWorkerAsync();
         }
 
         private void PauseSimulation(object sender, EventArgs e)
@@ -242,5 +258,32 @@ namespace ACProject.Forms
         {
         }
 
+        public IList<IBoardBlock> Blocks
+        {
+            get { return _shownBlocks; }
+            set { _shownBlocks = value; }
+        }
+
+        public void UpdateGrid()
+        {
+            panelCanvas.Controls.Clear();
+        }
+
+        private void DoBackgroundWork(object sender, DoWorkEventArgs e)
+        {
+            Debug.WriteLine("Starting tasks...");
+            this.UseWaitCursor = true;
+            var taskList = new List<Task>();
+            for (int i = 0; i < _k; i++)
+            {
+                var thread = new ComputingThread(_k, AppState.Instance.BoardBlocks, (int)_width, this);
+                var task = Task.Factory.StartNew(thread.StartComputations);
+                taskList.Add(task);
+            }
+            Task.WaitAll(taskList.ToArray());
+            this.UseWaitCursor = false;
+            //FIND MINIMUM FROM PIOTR'S DATA
+            Debug.WriteLine("All finished");
+        }
     }
 }
