@@ -315,7 +315,7 @@ namespace ACProject.Forms
 
         private void SimulationStep()
         {
-            var solver = new Solver(AppState.Instance.Blocks.Select(b => new MultipleBlock()
+            AppState.Solver = new Solver(AppState.Instance.Blocks.Select(b => new MultipleBlock()
             {
                 Count = b.Count,
                 Block = b
@@ -328,7 +328,7 @@ namespace ACProject.Forms
                 return;
             }
             nextBlock.Count--;
-            var ret = solver.GetNextMoves(new BoardBlock(nextBlock, new Point()));
+            var ret = AppState.Solver.GetNextMoves(new BoardBlock(nextBlock, new Point()));
             foreach (var move in ret)
             {
                 _shownBlocks[move.Board].Add(move.Block);

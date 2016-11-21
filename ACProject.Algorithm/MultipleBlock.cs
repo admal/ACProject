@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace ACProject.Algorithm
 {
+    [Serializable]
     public class MultipleBlock
     {
         public IBlock Block { get; set; }
