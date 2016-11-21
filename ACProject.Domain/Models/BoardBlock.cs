@@ -84,23 +84,38 @@ namespace ACProject.Domain.Models
 
         public override void Draw(Graphics graphics, int cellSize, int containerHeight)
         {
+            var brush2 = new SolidBrush(Color.Black);
             using (var brush = new SolidBrush(Color))
             {
-                for (int i = 0; i < Grid.GetLength(0); i++)
+                var width = Grid.GetLength(0);
+                var height = Grid.GetLength(1);
+
+                for (int i = 0; i < width; i++)
                 {
-                    for (int j = 0; j < Grid.GetLength(1); j++)
+                    for (int j = 0; j < height; j++)
                     {
                         if (this.Grid[i, j] == 1)
                         {
-                            var rect = new Rectangle((Position.X + i) * cellSize + 1,
-                                containerHeight - cellSize * (Position.Y + j) - 1, 
+                            var rect = new Rectangle((Position.X + width - i - 1) * cellSize + 1,
+                                containerHeight - cellSize * (Position.Y + height - j) - 1, 
                                 cellSize - 1,
                                 cellSize - 1);
+
                             graphics.FillRectangle(brush, rect);
+                        }
+                        else
+                        {
+                            var rect = new Rectangle((Position.X + width - i - 1)*cellSize + 1,
+                                containerHeight - cellSize*(Position.Y + height - j ) - 1,
+                                cellSize - 1,
+                                cellSize - 1);
+
+                            graphics.FillRectangle(brush2, rect);
                         }
                     }
                 }
             }
+            brush2.Dispose();
         }
 
         public override void Draw(Graphics graphics, int cellSize)
