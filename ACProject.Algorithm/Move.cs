@@ -19,7 +19,7 @@ namespace ACProject.Algorithm
         public Move(BoardBlock block, int column, double cost, int board, int[] heights)
         {
 
-            Block = new BoardBlock(block.Grid.Clone() as int[,], new Point(0, 0));
+            Block = new BoardBlock(block.Grid.Clone() as int[,], new Point(block.Position.X, block.Position.Y));
             Board = board;
             Column = column;
             Cost = cost;

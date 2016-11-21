@@ -315,7 +315,7 @@ namespace ACProject.Forms
             {
                 Count = b.Count,
                 Block = b
-            }).ToList(), (int)_width);
+            }).ToList(), (int)_width, _k);
             var nextBlock = AppState.Instance.Blocks.FirstOrDefault(x => x.Count != 0);
             if (nextBlock == null)
             {

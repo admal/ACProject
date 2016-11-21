@@ -111,7 +111,7 @@ namespace ACProject.Algorithm
                 return new CheckMoveResult()
                 {
                     Cost = A * aggHeight + B * bumps + C * holes,
-                    Heights = newHeights,
+                    Heights = tempHeights,
                     Location = new System.Drawing.Point(i, blockHeight)
                 };
             }
