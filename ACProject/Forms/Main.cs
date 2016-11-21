@@ -354,7 +354,7 @@ namespace ACProject.Forms
             stream.Close();
         }
 
-        private void loadToolStripMenuItem_Click_1(object sender, EventArgs e)
+        private void loadToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var file = new OpenFileDialog();
             file.Filter = "AC project (*.bin) | *.bin";
