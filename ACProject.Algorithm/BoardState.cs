@@ -31,7 +31,7 @@ namespace ACProject.Algorithm
                 q.Enqueue(r); 
         }
 
-        public IList<Move> CalculateTask(BoardBlock block)
+        public List<Move> CalculateTask(BoardBlock block)
         {
             List<Move> ret = new List<Move>();
             for (int j = 0; j < 4; j++)
@@ -53,7 +53,7 @@ namespace ACProject.Algorithm
         {
             int w = block.Grid.GetLength(0);
             int[] heights = new int[w];
-            for (int idx = 0; idx < w; i++)
+            for (int idx = 0; idx < w; idx++)
             {
                 int h = 0;
                 int hpos = block.Grid.GetLength(1) - 1;
@@ -66,7 +66,7 @@ namespace ACProject.Algorithm
             }
             int min = heights.Min();
             int[] positions = new int[w];
-            for (int idx = 0; idx < w; i++)
+            for (int idx = 0; idx < w; idx++)
             {
                 heights[idx] = heights[idx] - min;
                 positions[idx] = this.Heights[i + idx] + heights[idx];
@@ -83,14 +83,14 @@ namespace ACProject.Algorithm
             {
                 int[] topEmpty = new int[w];
                 int[] newHeights = new int[w];
-                for (int idx = 0; idx < w; i++)
+                for (int idx = 0; idx < w; idx++)
                 {
                     int h = 0;
                     int hpos = 0;
                     while (hpos < block.Grid.GetLength(1) && block.Grid[idx, hpos] == 0)
                     {
                         h++;
-                        hpos--;
+                        hpos++;
                     }
                     topEmpty[idx] = h;
                     newHeights[idx] = Heights[i + idx] + blockHeight - topEmpty[idx];

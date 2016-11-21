@@ -25,14 +25,18 @@ namespace ACProject.Algorithm
         public IList<Move> GetNextMoves(BoardBlock block)
         {
             ConcurrentQueue<Move> q = new ConcurrentQueue<Move>();
-            List<Task> tasks = new List<Task>();
+            List<Task<List<Move>>> tasks = new List<Task<List<Move>>>();
             foreach(var state in BoardStates)
             {
-                Task t = Task.Factory.StartNew(() =>state.GetMoves(q, block));
+                Task<List<Move>> t = Task<List<Move>>.Factory.StartNew(() =>state.CalculateTask(block));
                 tasks.Add(t);
             }
             Task.WaitAll(tasks.ToArray());
-            List<Move> ret = q.ToList();
+            List<Move> ret = new List<Move>();
+            foreach(var t in tasks)
+            {
+                ret.AddRange(t.Result);
+            }
             ret = ret.OrderBy(x => x.Cost).Skip(ret.Count - K).ToList();
             return ret;
         }
