@@ -84,7 +84,6 @@ namespace ACProject.Domain.Models
 
         public override void Draw(Graphics graphics, int cellSize, int containerHeight)
         {
-            var brush2 = new SolidBrush(Color.Black);
             using (var brush = new SolidBrush(Color))
             {
                 var width = Grid.GetLength(0);
@@ -103,19 +102,9 @@ namespace ACProject.Domain.Models
 
                             graphics.FillRectangle(brush, rect);
                         }
-                        else
-                        {
-                            var rect = new Rectangle((Position.X + width - i - 1)*cellSize + 1,
-                                containerHeight - cellSize*(Position.Y + height - j ) - 1,
-                                cellSize - 1,
-                                cellSize - 1);
-
-                            graphics.FillRectangle(brush2, rect);
-                        }
                     }
                 }
             }
-            brush2.Dispose();
         }
 
         public override void Draw(Graphics graphics, int cellSize)
