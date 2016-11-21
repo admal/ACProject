@@ -25,7 +25,6 @@ namespace ACProject.Algorithm
 
         public IList<Move> GetNextMoves(BoardBlock block)
         {
-            ConcurrentQueue<Move> q = new ConcurrentQueue<Move>();
             List<Task<List<Move>>> tasks = new List<Task<List<Move>>>();
             foreach(var state in BoardStates)
             {
@@ -38,7 +37,7 @@ namespace ACProject.Algorithm
             {
                 ret.AddRange(t.Result);
             }
-            ret = ret.OrderBy(x => x.Cost).Skip(ret.Count - K).ToList();
+            ret = ret.OrderBy(x => x.Cost).Take(K).ToList();
             UpdateBoardStates(ret);
             return ret;
         }
