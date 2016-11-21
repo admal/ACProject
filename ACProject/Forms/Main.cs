@@ -281,7 +281,7 @@ namespace ACProject.Forms
         
         public void UpdateGrid()
         {
-            panelCanvas.Invalidate();
+            panelCanvas.Invalidate(true);
         }
 
         private void DoBackgroundWork(object sender, DoWorkEventArgs e)
