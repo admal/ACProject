@@ -69,13 +69,13 @@ namespace ACProject.Domain.Models
         public void Draw(Graphics graphics, Brush brush, int cellSize)
         {
 
-            for (int i = 0; i < Grid.GetLength(1); i++)
+            for (int i = 0; i < Grid.GetLength(0); i++)
             {
-                for (int j = 0; j < Grid.GetLength(0); j++)
+                for (int j = 0; j < Grid.GetLength(1); j++)
                 {
-                    if (this.Grid[j, i] == 1)
+                    if (this.Grid[i, j] == 1)
                     {
-                        var rect = new Rectangle(Position.X + (cellSize * i) + 1, Position.Y + (cellSize * j) + 1, cellSize - 1, cellSize - 1);
+                        var rect = new Rectangle((Position.X + i) * cellSize + 1, (Position.Y + j) * cellSize + 1, cellSize - 1, cellSize - 1);
                         graphics.FillRectangle(brush, rect);
                     }
                 }
