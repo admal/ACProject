@@ -240,7 +240,7 @@ namespace ACProject.Forms
                 var blocks = AppState.Instance.BoardBlocks[tabIndex];
                 foreach (var block in blocks)
                 {
-                    block.Draw(graphics, brush, cellSize);
+                    block.Draw(graphics, cellSize, board.Height);
                 }
             }
         }
@@ -279,7 +279,7 @@ namespace ACProject.Forms
         
         public void UpdateGrid()
         {
-            panelCanvas.Invalidate();
+            panelCanvas.Invalidate(true);
         }
 
         private void DoBackgroundWork(object sender, DoWorkEventArgs e)
