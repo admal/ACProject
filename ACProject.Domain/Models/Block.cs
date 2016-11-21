@@ -57,5 +57,22 @@ namespace ACProject.Domain.Models
                 }
             }
         }
+        public virtual void Draw(Graphics graphics, int cellSize, int containerHeight)
+        {
+            using (var brush = new SolidBrush(Color))
+            {
+                for (int i = 0; i < Grid.GetLength(0); i++)
+                {
+                    for (int j = 0; j < Grid.GetLength(1); j++)
+                    {
+                        if (this.Grid[i, j] == 1)
+                        {
+                            var rect = new Rectangle((cellSize * i) + 1, containerHeight - (cellSize * j) -1, cellSize - 1, cellSize - 1);
+                            graphics.FillRectangle(brush, rect);
+                        }
+                    }
+                }
+            }
+        }
     }
 }

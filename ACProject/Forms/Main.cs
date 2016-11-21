@@ -241,7 +241,7 @@ namespace ACProject.Forms
                 var blocks = _shownBlocks[tabIndex];
                 foreach (var block in blocks)
                 {
-                    block.Draw(graphics, cellSize);
+                    block.Draw(graphics, cellSize, board.Height);
                 }
             }
     

@@ -9,5 +9,6 @@ namespace ACProject.Domain.Models
         Color Color { get; set; }
         int Count { get; set; }
         void Draw(Graphics graphics, int cellSize);
+        void Draw(Graphics graphics, int cellSize, int containerHeight);
     }
 }
