@@ -344,8 +344,7 @@ namespace ACProject.Forms
 
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var file = new SaveFileDialog();
-            file.Filter = "AC project (*.bin) | *.bin";
+            var file = new SaveFileDialog {Filter = "AC project (*.bin) | *.bin"};
             if (file.ShowDialog() != DialogResult.OK) return;
             Stream stream = new FileStream(file.FileName, FileMode.Create, FileAccess.Write, FileShare.None);
             try
@@ -361,8 +360,7 @@ namespace ACProject.Forms
 
         private void loadToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var file = new OpenFileDialog();
-            file.Filter = "AC project (*.bin) | *.bin";
+            var file = new OpenFileDialog {Filter = "AC project (*.bin) | *.bin"};
             if (file.ShowDialog() != DialogResult.OK) return;
             Stream stream = new FileStream(file.FileName, FileMode.Open, FileAccess.Read, FileShare.None);
             try
@@ -374,6 +372,7 @@ namespace ACProject.Forms
                 UIHelpers.MessageBoxService.ShowError(exception.Message);
             }
             stream.Close();
+            UpdateGrid();
         }
     }
 }
