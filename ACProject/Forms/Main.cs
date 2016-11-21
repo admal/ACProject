@@ -51,6 +51,7 @@ namespace ACProject.Forms
             _k = 1;
             formatter = new BinaryFormatter();
             tbK.Text = _k.ToString();
+            InitGrid();
             EnableButtons();
         }
 
@@ -116,6 +117,11 @@ namespace ACProject.Forms
                 _width = AppState.Instance.Width;
                 panelCanvas = tabBoards.Controls[0].Controls[0];
 
+                AppState.Instance.Solver = new Solver(AppState.Instance.Blocks.Select(b => new MultipleBlock()
+                {
+                    Count = b.Count,
+                    Block = b
+                }).ToList(), (int)_width, _k);
                 //_cellSize = (int) (panelCanvas.Width/_width);
 
                panelCanvas.Invalidate();
@@ -315,11 +321,7 @@ namespace ACProject.Forms
 
         private void SimulationStep()
         {
-            var solver = new Solver(AppState.Instance.Blocks.Select(b => new MultipleBlock()
-            {
-                Count = b.Count,
-                Block = b
-            }).ToList(), (int)_width, _k);
+            var solver = AppState.Instance.Solver;
             var nextBlock = AppState.Instance.Blocks.FirstOrDefault(x => x.Count != 0);
             if (nextBlock == null)
             {

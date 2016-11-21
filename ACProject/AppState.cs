@@ -4,6 +4,7 @@ using ACProject.Domain.Models;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
+using ACProject.Algorithm;
 
 namespace ACProject
 {
@@ -15,6 +16,8 @@ namespace ACProject
         private IList<IBlock> _blocks;
         private uint _width = 30;
         private IList<IBoardBlock> _boardBlocks;
+
+        public Solver Solver { get; set; }
 
         public uint Width
         {
