@@ -15,22 +15,8 @@ namespace ACProject
 
         private IList<IBlock> _blocks;
         private uint _width = 30;
-        private IList<IBoardBlock> _boardBlocks;
 
-        public static Solver Solver
-        {
-            get
-            {
-                if (Solver == null)
-                    throw new Exception("Solver is uninitialized");
-                return Solver;
-            }
-            set
-            {
-                Solver = value;
-            }
-        }
-
+        public Solver Solver { get; set; }
 
         public uint Width
         {
@@ -43,10 +29,8 @@ namespace ACProject
             get { return _blocks; }
         }
 
-        public IList<IBoardBlock> BoardBlocks
-        {
-            get { return _boardBlocks;  }
-        } 
+        public IList<IList<IBoardBlock>> BoardBlocks { get; set; }
+
 
         public int MaxBlockSize
         {

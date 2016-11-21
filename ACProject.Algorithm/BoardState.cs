@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace ACProject.Algorithm
 {
+    [Serializable]
     class BoardState
     {
         public int Width { get; set; }
