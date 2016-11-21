@@ -17,6 +17,7 @@ using System.Threading;
 using ACProject.Algorithm;
 using ACProject.CustomThreads;
 using ACProject.Domain.Models;
+using ACProject.Extensions;
 using ACProject.Interfaces;
 
 namespace ACProject.Forms
@@ -336,7 +337,7 @@ namespace ACProject.Forms
                 _shownBlocks[move.Board].Add(move.Block);
             }
 
-            UpdateGrid();
+            this.InvokeEx(f => f.UpdateGrid());
         }
 
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
