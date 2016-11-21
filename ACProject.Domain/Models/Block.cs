@@ -8,7 +8,8 @@ using System.Threading.Tasks;
 
 namespace ACProject.Domain.Models
 {
-    public class Block : IBlock, ISerializable
+    [Serializable]
+    public class Block : IBlock
     {
         private static readonly Random rnd = new Random();
 
@@ -32,11 +33,22 @@ namespace ACProject.Domain.Models
         {
             using (var brush = new SolidBrush(Color))
             {
-                for (int i = 0; i < Grid.GetLength(1); i++)
+                //for (int i = 0; i < Grid.GetLength(1); i++)
+                //{
+                //    for (int j = 0; j < Grid.GetLength(0); j++)
+                //    {
+                //        if (this.Grid[j, i] == 1)
+                //        {
+                //            var rect = new Rectangle((cellSize * i) + 1, (cellSize * j) + 1, cellSize - 1, cellSize - 1);
+                //            graphics.FillRectangle(brush, rect);
+                //        }
+                //    }
+                //}
+                for (int i = 0; i < Grid.GetLength(0); i++)
                 {
-                    for (int j = 0; j < Grid.GetLength(0); j++)
+                    for (int j = 0; j < Grid.GetLength(1); j++)
                     {
-                        if (this.Grid[j, i] == 1)
+                        if (this.Grid[i, j] == 1)
                         {
                             var rect = new Rectangle((cellSize * i) + 1, (cellSize * j) + 1, cellSize - 1, cellSize - 1);
                             graphics.FillRectangle(brush, rect);
@@ -44,11 +56,6 @@ namespace ACProject.Domain.Models
                     }
                 }
             }
-        }
-
-        public virtual void GetObjectData(SerializationInfo info, StreamingContext context)
-        {
-            throw new NotImplementedException();
         }
     }
 }

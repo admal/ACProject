@@ -45,6 +45,8 @@
             this.lblK = new System.Windows.Forms.Label();
             this.tbK = new System.Windows.Forms.TextBox();
             this.btnApply = new System.Windows.Forms.Button();
+            this.tbJump = new System.Windows.Forms.TextBox();
+            this.btnJump = new System.Windows.Forms.Button();
             this.tabBoards = new System.Windows.Forms.TabControl();
             this.backgroundWorker = new System.ComponentModel.BackgroundWorker();
             this.menuStrip1.SuspendLayout();
@@ -64,20 +66,20 @@
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.saveToolStripMenuItem.Text = "Save";
+            this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
             // loadToolStripMenuItem
             // 
             this.loadToolStripMenuItem.Name = "loadToolStripMenuItem";
-            this.loadToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
+            this.loadToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.loadToolStripMenuItem.Text = "Load";
-            this.loadToolStripMenuItem.Click += new System.EventHandler(this.loadToolStripMenuItem_Click);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             // 
             // blocksToolStripMenuItem
@@ -176,6 +178,8 @@
             this.panelButtons.Controls.Add(this.lblK);
             this.panelButtons.Controls.Add(this.tbK);
             this.panelButtons.Controls.Add(this.btnApply);
+            this.panelButtons.Controls.Add(this.tbJump);
+            this.panelButtons.Controls.Add(this.btnJump);
             this.panelButtons.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panelButtons.Location = new System.Drawing.Point(0, 533);
             this.panelButtons.Name = "panelButtons";
@@ -210,6 +214,23 @@
             this.btnApply.Text = "Apply";
             this.btnApply.UseVisualStyleBackColor = true;
             this.btnApply.Click += new System.EventHandler(this.Apply);
+            // 
+            // tbJump
+            // 
+            this.tbJump.Location = new System.Drawing.Point(786, 3);
+            this.tbJump.Name = "tbJump";
+            this.tbJump.Size = new System.Drawing.Size(37, 20);
+            this.tbJump.TabIndex = 10;
+            // 
+            // btnJump
+            // 
+            this.btnJump.Location = new System.Drawing.Point(829, 3);
+            this.btnJump.Name = "btnJump";
+            this.btnJump.Size = new System.Drawing.Size(75, 23);
+            this.btnJump.TabIndex = 11;
+            this.btnJump.Text = "Jump";
+            this.btnJump.UseVisualStyleBackColor = true;
+            this.btnJump.Click += new System.EventHandler(this.JumpSimulation);
             // 
             // tabBoards
             // 
@@ -265,5 +286,7 @@
         private System.Windows.Forms.Button btnApply;
         private System.Windows.Forms.TabControl tabBoards;
         private System.ComponentModel.BackgroundWorker backgroundWorker;
+        private System.Windows.Forms.TextBox tbJump;
+        private System.Windows.Forms.Button btnJump;
     }
 }
