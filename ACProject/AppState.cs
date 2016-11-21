@@ -7,7 +7,8 @@ using System.Runtime.Serialization;
 
 namespace ACProject
 {
-    public class AppState : ISerializable
+    [Serializable]
+    public class AppState
     {
         private static AppState _instance;
 
@@ -65,6 +66,10 @@ namespace ACProject
                     _instance = new AppState();
                 return _instance;
             }
+            set
+            {
+                _instance = value;
+            }
         }
 
         public void LoadInitial(string filename)
@@ -113,12 +118,6 @@ namespace ACProject
                     }
                 }
             }
-        }
-
-        public void GetObjectData(SerializationInfo info, StreamingContext context)
-        {
-            //have to serialize both (display and base) lists of blocks
-            throw new NotImplementedException();
         }
     }
 }

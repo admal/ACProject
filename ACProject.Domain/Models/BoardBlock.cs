@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace ACProject.Domain.Models
 {
+    [Serializable]
     public class BoardBlock : Block , IBoardBlock
     {
         public Point Position { get; set; }
@@ -86,11 +87,6 @@ namespace ACProject.Domain.Models
             {
                 this.Draw(graphics, brush, cellSize);
             }
-        }
-
-        public override void GetObjectData(SerializationInfo info, StreamingContext context)
-        {
-            throw new NotImplementedException();
         }
     }
 }

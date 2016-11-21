@@ -8,7 +8,8 @@ using System.Threading.Tasks;
 
 namespace ACProject.Domain.Models
 {
-    public class Block : IBlock, ISerializable
+    [Serializable]
+    public class Block : IBlock
     {
         private static readonly Random rnd = new Random();
 
@@ -44,11 +45,6 @@ namespace ACProject.Domain.Models
                     }
                 }
             }
-        }
-
-        public virtual void GetObjectData(SerializationInfo info, StreamingContext context)
-        {
-            throw new NotImplementedException();
         }
     }
 }

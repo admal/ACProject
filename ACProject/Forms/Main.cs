@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Deployment.Application;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
@@ -10,6 +11,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using ACProject.UIHelpers;
 using System.IO;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Threading;
 using ACProject.Algorithm;
 using ACProject.CustomThreads;
@@ -34,6 +37,7 @@ namespace ACProject.Forms
         private IList<IList<IBoardBlock> >_shownBlocks;
         private int _k;
         private bool _computing = false;
+        private IFormatter formatter;
         public Main()
         {
             InitializeComponent();
@@ -45,6 +49,7 @@ namespace ACProject.Forms
             _shownBlocks = new List<IList<IBoardBlock>>();
             _shownBlocks.Add(new List<IBoardBlock>());
             _k = 1;
+            formatter = new BinaryFormatter();
             tbK.Text = _k.ToString();
             EnableButtons();
         }
@@ -260,10 +265,6 @@ namespace ACProject.Forms
             panelCanvas.Invalidate();
         }
 
-        private void loadToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-        }
-
         //public IList<IBoardBlock> Blocks
         //{
         //    get { return _shownBlocks; }
@@ -316,6 +317,40 @@ namespace ACProject.Forms
                 Thread.Sleep(1000);
             }
 
+        }
+
+        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var file = new SaveFileDialog();
+            file.Filter = "AC project (*.bin) | *.bin";
+            if (file.ShowDialog() != DialogResult.OK) return;
+            Stream stream = new FileStream(file.FileName, FileMode.Create, FileAccess.Write, FileShare.None);
+            try
+            {
+                formatter.Serialize(stream, AppState.Instance);
+            }
+            catch (Exception exception)
+            {
+                UIHelpers.MessageBoxService.ShowError(exception.Message);
+            }
+            stream.Close();
+        }
+
+        private void loadToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var file = new OpenFileDialog();
+            file.Filter = "AC project (*.bin) | *.bin";
+            if (file.ShowDialog() != DialogResult.OK) return;
+            Stream stream = new FileStream(file.FileName, FileMode.Open, FileAccess.Read, FileShare.None);
+            try
+            {
+                AppState.Instance = (AppState) formatter.Deserialize(stream);
+            }
+            catch (Exception exception)
+            {
+                UIHelpers.MessageBoxService.ShowError(exception.Message);
+            }
+            stream.Close();
         }
     }
 }
