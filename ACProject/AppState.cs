@@ -15,7 +15,6 @@ namespace ACProject
 
         private IList<IBlock> _blocks;
         private uint _width = 30;
-        private IList<IBoardBlock> _boardBlocks;
 
         public Solver Solver { get; set; }
 
@@ -30,10 +29,8 @@ namespace ACProject
             get { return _blocks; }
         }
 
-        public IList<IBoardBlock> BoardBlocks
-        {
-            get { return _boardBlocks;  }
-        } 
+        public IList<IList<IBoardBlock>> BoardBlocks { get; set; }
+
 
         public int MaxBlockSize
         {

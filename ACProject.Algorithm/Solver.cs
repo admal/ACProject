@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace ACProject.Algorithm
 {
+    [Serializable]
     public class Solver
     {
         private int Width { get; set; }

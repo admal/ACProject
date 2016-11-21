@@ -17,6 +17,7 @@ using System.Threading;
 using ACProject.Algorithm;
 using ACProject.CustomThreads;
 using ACProject.Domain.Models;
+using ACProject.Extensions;
 using ACProject.Interfaces;
 
 namespace ACProject.Forms
@@ -34,7 +35,6 @@ namespace ACProject.Forms
         private SimulationState _simulationState = SimulationState.NotStarted;
         private int _cellSize;
         private uint _width;
-        private IList<IList<IBoardBlock> >_shownBlocks;
         private int _k;
         private bool _computing = false;
         private IFormatter formatter;
@@ -46,8 +46,8 @@ namespace ACProject.Forms
 
             tbWidth.Text = AppState.Instance.Width.ToString();
             _width = AppState.Instance.Width;
-            _shownBlocks = new List<IList<IBoardBlock>>();
-            _shownBlocks.Add(new List<IBoardBlock>());
+            AppState.Instance.BoardBlocks = new List<IList<IBoardBlock>>();
+            AppState.Instance.BoardBlocks.Add(new List<IBoardBlock>());
             _k = 1;
             formatter = new BinaryFormatter();
             tbK.Text = _k.ToString();
@@ -108,10 +108,10 @@ namespace ACProject.Forms
             {
                 GenerateBoards();
 
-                _shownBlocks.Clear();
+                AppState.Instance.BoardBlocks.Clear();
                 for (int i = 0; i < _k; i++)
                 {
-                    _shownBlocks.Add(new List<IBoardBlock>());
+                    AppState.Instance.BoardBlocks.Add(new List<IBoardBlock>());
                 }
                 tbWidth.Text = AppState.Instance.Width.ToString();
                 _width = AppState.Instance.Width;
@@ -144,7 +144,11 @@ namespace ACProject.Forms
                 GenerateBoards();
 
                 AppState.Instance.Width = width;
-
+                AppState.Instance.Solver = new Solver(AppState.Instance.Blocks.Select(b => new MultipleBlock()
+                {
+                    Count = b.Count,
+                    Block = b
+                }).ToList(), (int)_width, _k);
 
                 _width = width;
                 _cellSize = (int)(panelCanvas.Width / _width);
@@ -166,7 +170,7 @@ namespace ACProject.Forms
             TabPage currentTab = null;
             for (int i = 0; i < _k; i++)
             {
-                _shownBlocks.Add(new List<IBoardBlock>());
+                AppState.Instance.BoardBlocks.Add(new List<IBoardBlock>());
 
                 if (i % onPageGridCount == 0)
                 {
@@ -238,13 +242,12 @@ namespace ACProject.Forms
             int tabIndex = (int) board.Tag;
             using (var brush = new SolidBrush(Color.Aqua))
             {
-                var blocks = _shownBlocks[tabIndex];
+                var blocks = AppState.Instance.BoardBlocks[tabIndex];
                 foreach (var block in blocks)
                 {
                     block.Draw(graphics, cellSize, board.Height);
                 }
             }
-    
         }
 
         private void StartSimulation(object sender, EventArgs e)
@@ -333,16 +336,15 @@ namespace ACProject.Forms
             var ret = solver.GetNextMoves(new BoardBlock(nextBlock, new Point()));
             foreach (var move in ret)
             {
-                _shownBlocks[move.Board].Add(move.Block);
+                AppState.Instance.BoardBlocks[move.Board].Add(move.Block);
             }
 
-            UpdateGrid();
+            this.InvokeEx(f => f.UpdateGrid());
         }
 
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var file = new SaveFileDialog();
-            file.Filter = "AC project (*.bin) | *.bin";
+            var file = new SaveFileDialog {Filter = "AC project (*.bin) | *.bin"};
             if (file.ShowDialog() != DialogResult.OK) return;
             Stream stream = new FileStream(file.FileName, FileMode.Create, FileAccess.Write, FileShare.None);
             try
@@ -358,19 +360,19 @@ namespace ACProject.Forms
 
         private void loadToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var file = new OpenFileDialog();
-            file.Filter = "AC project (*.bin) | *.bin";
+            var file = new OpenFileDialog {Filter = "AC project (*.bin) | *.bin"};
             if (file.ShowDialog() != DialogResult.OK) return;
             Stream stream = new FileStream(file.FileName, FileMode.Open, FileAccess.Read, FileShare.None);
             try
             {
-                AppState.Instance = (AppState) formatter.Deserialize(stream);
+                AppState.Instance = (AppState)formatter.Deserialize(stream);
             }
             catch (Exception exception)
             {
                 UIHelpers.MessageBoxService.ShowError(exception.Message);
             }
             stream.Close();
+            UpdateGrid();
         }
     }
 }
