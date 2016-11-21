@@ -61,6 +61,8 @@ namespace ACProject.Forms
                 case SimulationState.NotStarted:
                     btnPause.Enabled = false;
                     btnNextStep.Enabled = false;
+                    btnJump.Enabled = false;
+                    tbJump.Enabled = false;
                     btnReset.Enabled = true;
                     btnApply.Enabled = true;
                     btnStart.Enabled = true;
@@ -68,6 +70,8 @@ namespace ACProject.Forms
                 case SimulationState.Started:
                     btnPause.Enabled = true;
                     btnNextStep.Enabled = false;
+                    btnJump.Enabled = false;
+                    tbJump.Enabled = false;
                     btnReset.Enabled = false;
                     btnApply.Enabled = false;
                     btnStart.Enabled = false;
@@ -75,6 +79,8 @@ namespace ACProject.Forms
                 case SimulationState.Paused:
                     btnPause.Enabled = false;
                     btnNextStep.Enabled = true;
+                    btnJump.Enabled = true;
+                    tbJump.Enabled = true;
                     btnReset.Enabled = true;
                     btnApply.Enabled = false;
                     btnStart.Enabled = true;
@@ -253,23 +259,13 @@ namespace ACProject.Forms
             EnableButtons();
         }
 
-        private int counter = 0;
-
         private void MoveOneStepSimulation(object sender, EventArgs e)
         {
-            panelCanvas.Invalidate();
+            this.UseWaitCursor = true;
+            SimulationStep();
+            this.UseWaitCursor = false;
         }
-
-        private void loadToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-        }
-
-        //public IList<IBoardBlock> Blocks
-        //{
-        //    get { return _shownBlocks; }
-        //    set { _shownBlocks = value; }
-        //}
-
+        
         public void UpdateGrid()
         {
             panelCanvas.Invalidate();
@@ -279,43 +275,57 @@ namespace ACProject.Forms
         {
             while (_computing)
             {
-                Debug.WriteLine("Starting tasks...");
+                Debug.WriteLine("Start simulation step");
                 this.UseWaitCursor = true;
-                //var taskList = new List<Task>();
-                //for (int i = 0; i < _k; i++)
-                //{
-                //    var thread = new ComputingThread(_k, AppState.Instance.Blocks, (int)_width, this);
-                //    var task = Task.Factory.StartNew(thread.StartComputations);
-                //    taskList.Add(task);
-                //}
-                //Task.WaitAll(taskList.ToArray());
-
-                var solver = new Solver(AppState.Instance.Blocks.Select(b => new MultipleBlock()
-                {
-                    Count = b.Count,
-                    Block = b
-                }).ToList(), (int)_width);
-                var nextBlock = AppState.Instance.Blocks.FirstOrDefault(x => x.Count != 0);
-                if (nextBlock == null)
-                {
-                    MessageBoxService.ShowInfo("Computation ended!");
-                    _computing = false;
-                    return;
-                }
-                nextBlock.Count--;
-                var ret = solver.GetNextMoves(new BoardBlock(nextBlock, new Point()));
-                foreach (var move in ret)
-                {
-                    _shownBlocks[move.Board].Add(move.Block);
-                }
-
-                UpdateGrid();
+                SimulationStep();
                 this.UseWaitCursor = false;
-                //FIND MINIMUM FROM PIOTR'S DATA
-                Debug.WriteLine("All finished");
+                Debug.WriteLine("Finished simulation step");
                 Thread.Sleep(1000);
             }
 
+        }
+
+        private void JumpSimulation(object sender, EventArgs e)
+        {
+            try
+            {
+                var steps = uint.Parse(tbJump.Text);
+                this.UseWaitCursor = true;
+                for (int i = 0; i < steps; i++)
+                {
+                    SimulationStep();
+                }
+                this.UseWaitCursor = false;
+            }
+            catch (Exception)
+            {
+                MessageBoxService.ShowError("Provide positive number!");
+            }
+            
+        }
+
+        private void SimulationStep()
+        {
+            var solver = new Solver(AppState.Instance.Blocks.Select(b => new MultipleBlock()
+            {
+                Count = b.Count,
+                Block = b
+            }).ToList(), (int)_width);
+            var nextBlock = AppState.Instance.Blocks.FirstOrDefault(x => x.Count != 0);
+            if (nextBlock == null)
+            {
+                MessageBoxService.ShowInfo("Computation ended!");
+                _computing = false;
+                return;
+            }
+            nextBlock.Count--;
+            var ret = solver.GetNextMoves(new BoardBlock(nextBlock, new Point()));
+            foreach (var move in ret)
+            {
+                _shownBlocks[move.Board].Add(move.Block);
+            }
+
+            UpdateGrid();
         }
     }
 }
