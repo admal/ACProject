@@ -14,12 +14,13 @@ namespace ACProject.Algorithm
         private IList<MultipleBlock> Blocks { get; set; }
         private int K { get; set; }
         private IList<BoardState> BoardStates { get; set; }
-        public Solver(IList<MultipleBlock> blocks, int width)
+        public Solver(IList<MultipleBlock> blocks, int width, int k)
         {
+            K = k;
             Width = width;
             Blocks = blocks;
             BoardStates = new List<BoardState>();
-            BoardStates.Add(new BoardState(Width, K));
+            BoardStates.Add(new BoardState(Width, 0));
         }
 
         public IList<Move> GetNextMoves(BoardBlock block)
@@ -38,7 +39,18 @@ namespace ACProject.Algorithm
                 ret.AddRange(t.Result);
             }
             ret = ret.OrderBy(x => x.Cost).Skip(ret.Count - K).ToList();
+            UpdateBoardStates(ret);
             return ret;
+        }
+
+        private  void UpdateBoardStates(List<Move> moves)
+        {
+            BoardStates.Clear();
+            int i = 0;
+            foreach (var move in moves)
+            {
+                BoardStates.Add(new BoardState(move.NewHeights, i));
+            }
         }
     }
 }

@@ -43,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BoardState.cs" />
+    <Compile Include="CheckMoveResult.cs" />
     <Compile Include="Move.cs" />
     <Compile Include="MultipleBlock.cs" />
     <Compile Include="Solver.cs" />

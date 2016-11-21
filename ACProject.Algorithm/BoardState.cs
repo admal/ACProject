@@ -15,7 +15,7 @@ namespace ACProject.Algorithm
 
         private const double A = 0.6d;
         private const double B = 0.3d;
-        private const double C = 0.9d;
+        private const double C = 2d;
         public int K { get; set; }
         public BoardState(int width, int k)
         {
@@ -24,11 +24,11 @@ namespace ACProject.Algorithm
             Heights = new int[Width];
         }
 
-        public async void GetMoves(ConcurrentQueue<Move> q, BoardBlock block)
+        public BoardState(int[] widths, int k)
         {
-            IList<Move> result = await Task.Run(() => CalculateTask(block));
-            foreach (var r in result)
-                q.Enqueue(r); 
+            K = k;
+            Width = widths.Length;
+            Heights = widths;
         }
 
         public List<Move> CalculateTask(BoardBlock block)
@@ -38,10 +38,11 @@ namespace ACProject.Algorithm
             {
                 for (int i = 0; i < Width - block.Grid.GetLength(0); i++)
                 {
-                    var cost = CheckMove(i, block);
-                    if(!double.IsNaN(cost))
+                    var result = CheckMove(i, block);
+                    if(result != null)
                     {
-                        ret.Add(new Move(block, i, cost, K));
+                        block.Position = result.Location;
+                        ret.Add(new Move(block, i, result.Cost, K, result.Heights));
                     }
                 }
                 block.RotateClockwise();
@@ -49,7 +50,7 @@ namespace ACProject.Algorithm
             return ret;
         }
 
-        public double CheckMove(int i, BoardBlock block)
+        public CheckMoveResult CheckMove(int i, BoardBlock block)
         {
             int w = block.Grid.GetLength(0);
             int[] heights = new int[w];
@@ -107,11 +108,15 @@ namespace ACProject.Algorithm
                 {
                     holes = holes + (blockHeight - block.Grid.GetLength(1) + heights[idx] - Heights[i + idx]);
                 }
-                return A * aggHeight + B * bumps + C * holes;
-
+                return new CheckMoveResult()
+                {
+                    Cost = A * aggHeight + B * bumps + C * holes,
+                    Heights = newHeights,
+                    Location = new System.Drawing.Point(i, blockHeight)
+                };
             }
             else
-                return double.NaN;
+                return null;
         }
     }
 }
