@@ -65,9 +65,9 @@ namespace ACProject.Forms
             {
                 case SimulationState.NotStarted:
                     btnPause.Enabled = false;
-                    btnNextStep.Enabled = false;
-                    btnJump.Enabled = false;
-                    tbJump.Enabled = false;
+                    btnNextStep.Enabled = true;
+                    btnJump.Enabled = true;
+                    tbJump.Enabled = true;
                     btnReset.Enabled = true;
                     btnApply.Enabled = true;
                     btnStart.Enabled = true;
@@ -269,6 +269,8 @@ namespace ACProject.Forms
             this.UseWaitCursor = true;
             SimulationStep();
             this.UseWaitCursor = false;
+            _simulationState = SimulationState.Paused;
+            EnableButtons();
         }
         
         public void UpdateGrid()
@@ -301,6 +303,8 @@ namespace ACProject.Forms
                     SimulationStep();
                 }
                 this.UseWaitCursor = false;
+                _simulationState = SimulationState.Paused;
+                EnableButtons();                
             }
             catch (Exception)
             {
