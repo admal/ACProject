@@ -344,7 +344,10 @@ namespace ACProject.Forms
                 else //draw using other board
                 {
                     AppState.Instance.BoardBlocks[i] = new List<IBoardBlock>(AppState.Instance.BoardBlocks[move.Board]);
-                    AppState.Instance.BoardBlocks[i].RemoveAt(AppState.Instance.BoardBlocks[i].Count - 1);
+                    if (move.Board < i) //it means that the move on that board was already done, so remove it and redo with new move
+                    {
+                        AppState.Instance.BoardBlocks[i].RemoveAt(AppState.Instance.BoardBlocks[i].Count - 1);
+                    }
                     AppState.Instance.BoardBlocks[i].Add(move.Block);
                 }
                 
