@@ -10,7 +10,7 @@ namespace ACProject.Algorithm
     [Serializable]
     public class MultipleBlock
     {
-        public IBoardBlock Block { get; set; }
+        public BoardBlock Block { get; set; }
         public int Count { get; set; }
     }
 }
