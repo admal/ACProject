@@ -120,7 +120,7 @@ namespace ACProject.Forms
                 AppState.Instance.Solver = new Solver(AppState.Instance.Blocks.Select(b => new MultipleBlock()
                 {
                     Count = b.Count,
-                    Block = b
+                    Block = new BoardBlock(b, new Point())
                 }).ToList(), (int)_width, _k);
                 //_cellSize = (int) (panelCanvas.Width/_width);
 
@@ -148,7 +148,7 @@ namespace ACProject.Forms
                 AppState.Instance.Solver = new Solver(AppState.Instance.Blocks.Select(b => new MultipleBlock()
                 {
                     Count = b.Count,
-                    Block = b
+                    Block = new BoardBlock(b, new Point())
                 }).ToList(), (int)_width, _k);
 
                 _width = width;
