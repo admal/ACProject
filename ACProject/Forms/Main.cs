@@ -123,7 +123,6 @@ namespace ACProject.Forms
                     Block = new BoardBlock(b, new Point())
                 }).ToList(), (int)_width, _k);
                 //_cellSize = (int) (panelCanvas.Width/_width);
-
                panelCanvas.Invalidate();
             }
             else
@@ -163,7 +162,7 @@ namespace ACProject.Forms
 
         private void GenerateBoards()
         {
-            int onPageGridCount = 2;
+            int onPageGridCount = 3;
 
             tabBoards.TabPages.Clear();
             tabBoards.Controls.Clear();
@@ -178,12 +177,12 @@ namespace ACProject.Forms
                     var grid = new TableLayoutPanel
                     {
                         RowCount = 1,
-                        ColumnCount = 2,
+                        ColumnCount = onPageGridCount,
                         ColumnStyles =
                         {
-                            new ColumnStyle(SizeType.Percent, 50),
-                            new ColumnStyle(SizeType.Percent, 50),
-                            //new ColumnStyle(SizeType.Percent, 25),
+                            new ColumnStyle(SizeType.Percent, 33),
+                            new ColumnStyle(SizeType.Percent, 33),
+                            new ColumnStyle(SizeType.Percent, 33),
                             //new ColumnStyle(SizeType.Percent, 25)
                         },
                         RowStyles = {new RowStyle(SizeType.Percent, 100)},
@@ -195,9 +194,9 @@ namespace ACProject.Forms
                     currentTab.Dock = DockStyle.Fill;
                     
                     currentTab.Controls.Add(grid);
+                    currentTab.AutoScroll = true;
                     tabBoards.TabPages.Add(currentTab);
                 }
-
                 var currGrid = currentTab.Controls[0];
                 var newBoard = new Panel
                 {
@@ -207,7 +206,7 @@ namespace ACProject.Forms
                 };
                 newBoard.Tag = i;
                 newBoard.Paint += OnPaint;
-                
+                newBoard.AutoScroll = true;
                 currGrid.Controls.Add(newBoard);
             }
 
@@ -217,13 +216,14 @@ namespace ACProject.Forms
         {
             panelCanvas = tabBoards.Controls[0].Controls[0];
             var control = sender as Control;
-            _cellSize = 15 < (int)(control.Width / _width) ? 15 : (int)(control.Width / _width);
+            _cellSize = 5;// < (int)(control.Width / _width) ? 15 : (int)(control.Width / _width);
 
             var graphics = e.Graphics;
 
             var cellSize = _cellSize;
 
             int viewHeight = panelCanvas.Height/cellSize;
+            
 
             using (var pen = new Pen(Color.Black))
             {
@@ -241,13 +241,10 @@ namespace ACProject.Forms
             //drawing blocks
             var board = sender as Control;
             int tabIndex = (int) board.Tag;
-            using (var brush = new SolidBrush(Color.Aqua))
+            var blocks = AppState.Instance.BoardBlocks[tabIndex];
+            foreach (var block in blocks)
             {
-                var blocks = AppState.Instance.BoardBlocks[tabIndex];
-                foreach (var block in blocks)
-                {
-                    block.Draw(graphics, cellSize, board.Height);
-                }
+                block.Draw(graphics, cellSize, board.Height);
             }
         }
 
