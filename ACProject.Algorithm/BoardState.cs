@@ -17,8 +17,9 @@ namespace ACProject.Algorithm
         private const double A = 0.6d;
         private const double B = 0.3d;
         private const double C = 0.9d;
-        private const double D = 0.4d;
+        private const double D = 3d;
         public int K { get; set; }
+        public IList<MultipleBlock> Blocks { get; set; }
         public BoardState(int width, int k)
         {
             K = k;
@@ -79,9 +80,10 @@ namespace ACProject.Algorithm
             bool ok = true;
             for(int idx = 0; idx < w; idx++)
             {
-                if (blockHeight - block.Grid.GetLength(1) + botEmpty[idx] - this.Heights[i + idx] < 0)
+                if (blockHeight - block.Grid.GetLength(1) + botEmpty[idx] - this.Heights[i + idx] < 1)
                     ok = false;
             }
+            ok = true;
             if (ok)
             {
                 int[] topEmpty = new int[w];
@@ -113,7 +115,7 @@ namespace ACProject.Algorithm
                 }
                 return new CheckMoveResult()
                 {
-                    Cost = (A * aggHeight + B * bumps + C * holes + D * heightIncrease) / (block.Grid.GetLength(0) + block.Grid.GetLength(1)),
+                    Cost = (A * aggHeight + B * bumps + C * holes + D * heightIncrease),
                     Heights = tempHeights,
                     Location = new System.Drawing.Point(i, blockHeight -block.Grid.GetLength(1))
                 };

@@ -27,9 +27,9 @@ namespace ACProject.Algorithm
         public IList<Move> GetNextMoves(BoardBlock block)
         {
             List<Task<List<Move>>> tasks = new List<Task<List<Move>>>();
-            foreach(var state in BoardStates)
+            foreach (var state in BoardStates)
             {
-                Task<List<Move>> t = Task<List<Move>>.Factory.StartNew(() =>state.CalculateTask(block));
+                Task<List<Move>> t = Task<List<Move>>.Factory.StartNew(() => state.CalculateTask(block));
                 tasks.Add(t);
             }
             Task.WaitAll(tasks.ToArray());
@@ -50,6 +50,7 @@ namespace ACProject.Algorithm
             foreach (var move in moves)
             {
                 BoardStates.Add(new BoardState(move.NewHeights, i));
+                i++;
             }
         }
     }
