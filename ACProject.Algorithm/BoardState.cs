@@ -47,7 +47,7 @@ namespace ACProject.Algorithm
                         ret.Add(new Move(block, i, result.Cost, K, result.Heights));
                     }
                 }
-                block.RotateClockwise();
+                block = block.RotateClockwise();
             }
             return ret;
         }
