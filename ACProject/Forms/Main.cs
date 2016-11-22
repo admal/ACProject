@@ -140,6 +140,7 @@ namespace ACProject.Forms
                 var input = tbWidth.Text;
                 var width = uint.Parse(input);
                 _k = int.Parse(tbK.Text);
+                _width = width;
 
                 GenerateBoards();
 
