@@ -334,9 +334,20 @@ namespace ACProject.Forms
             }
             nextBlock.Count--;
             var ret = solver.GetNextMoves(new BoardBlock(nextBlock, new Point()));
-            foreach (var move in ret)
+            for (int i = 0; i < ret.Count; i++)
             {
-                AppState.Instance.BoardBlocks[move.Board].Add(move.Block);
+                var move = ret[i];
+                if (move.Board == i)
+                {
+                    AppState.Instance.BoardBlocks[i].Add(move.Block);
+                }
+                else //draw using other board
+                {
+                    AppState.Instance.BoardBlocks[i] = new List<IBoardBlock>(AppState.Instance.BoardBlocks[move.Board]);
+                    AppState.Instance.BoardBlocks[i].RemoveAt(AppState.Instance.BoardBlocks[i].Count - 1);
+                    AppState.Instance.BoardBlocks[i].Add(move.Block);
+                }
+                
             }
 
             this.InvokeEx(f => f.UpdateGrid());
