@@ -18,16 +18,16 @@ namespace ACProject.Domain.Models
         public Block(int width, int height)
         {
             Color = Color.FromArgb(rnd.Next(0, 255), rnd.Next(0, 255), rnd.Next(0, 255));
-            this.Grid =  new int[width, height];
+            _grid =  new int[width, height];
         }
 
         public Block(int[,] grid)
         {
             Color = Color.FromArgb(rnd.Next(0, 255), rnd.Next(0, 255), rnd.Next(0, 255));
-            this.Grid = grid;
-            removeUselessRowsAndCols();
+            _grid = grid;
+            RemoveUselessRowsAndCols();
         }
-        private void removeUselessRowsAndCols()
+        private void RemoveUselessRowsAndCols()
         {
             int countY = 0;
             int[] necessaryRows = new int[_grid.GetLength(1)]; // necessary grid rows
@@ -90,7 +90,7 @@ namespace ACProject.Domain.Models
             set
             {
                 _grid = value;
-                removeUselessRowsAndCols();
+                RemoveUselessRowsAndCols();
             } 
         }
         public Color Color { get; set; }
