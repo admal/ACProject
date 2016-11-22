@@ -144,7 +144,11 @@ namespace ACProject.Forms
                 GenerateBoards();
 
                 AppState.Instance.Width = width;
-
+                AppState.Instance.Solver = new Solver(AppState.Instance.Blocks.Select(b => new MultipleBlock()
+                {
+                    Count = b.Count,
+                    Block = b
+                }).ToList(), (int)_width, _k);
 
                 _width = width;
                 _cellSize = (int)(panelCanvas.Width / _width);
