@@ -32,8 +32,9 @@ namespace ACProject.Domain.Models
             this.Position = position;
         }
 
-        public void RotateClockwise()
+        public BoardBlock RotateClockwise()
         {
+            
             int[,] newMatrix = new int[Grid.GetLength(1), Grid.GetLength(0)];
             int newColumn, newRow = 0;
             for (int oldColumn = 0; oldColumn <= Grid.GetLength(1) - 1; oldColumn++)
@@ -46,10 +47,11 @@ namespace ACProject.Domain.Models
                 }
                 newRow++;
             }
-            Grid = newMatrix;
+            BoardBlock block = new BoardBlock(newMatrix, Position);
+            return block;
         }
 
-        public void RotateCounterClockwise()
+        public BoardBlock RotateCounterClockwise()
         {
             int[,] newMatrix = new int[Grid.GetLength(1), this.Grid.GetLength(0)];
             int newColumn, newRow = 0;
@@ -63,7 +65,8 @@ namespace ACProject.Domain.Models
                 }
                 newRow++;
             }
-            Grid = newMatrix;
+            BoardBlock block = new BoardBlock(newMatrix, Position);
+            return block;
         }
 
         public void Draw(Graphics graphics, Brush brush, int cellSize)

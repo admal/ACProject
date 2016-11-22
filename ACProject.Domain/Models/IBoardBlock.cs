@@ -10,8 +10,8 @@ namespace ACProject.Domain.Models
     public interface IBoardBlock : IBlock
     {
         Point Position { get; set; }
-        void RotateClockwise();
-        void RotateCounterClockwise();
+        BoardBlock RotateClockwise();
+        BoardBlock RotateCounterClockwise();
         void Draw(Graphics graphics, Brush brush, int cellSize);
     }
 }

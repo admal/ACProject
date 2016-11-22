@@ -29,7 +29,6 @@ namespace ACProject.Domain.Models
         }
         private void RemoveUselessRowsAndCols()
         {
-            int countY = 0;
             int[] necessaryRows = new int[_grid.GetLength(1)]; // necessary grid rows
             int[] necessaryCols = new int[_grid.GetLength(0)]; // necessary grid cols
             for (int i = 0; i < necessaryCols.Length; i++) necessaryCols[i] = 0;
@@ -94,7 +93,6 @@ namespace ACProject.Domain.Models
             } 
         }
         public Color Color { get; set; }
-
         public virtual void Draw(Graphics graphics, int cellSize)
         {
             using (var brush = new SolidBrush(Color))
