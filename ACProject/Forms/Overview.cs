@@ -50,7 +50,7 @@ namespace ACProject.Forms
         private void ChooseBlockFile(object sender, EventArgs e)
         {
              OpenFileDialog dialog = new OpenFileDialog();
-            dialog.Filter = "block files (*.blk)|*.blk|All files (*.*)|*.*";
+            dialog.Filter = "All files (*.*)|*.*";
 
             if (dialog.ShowDialog() == DialogResult.OK)
             {

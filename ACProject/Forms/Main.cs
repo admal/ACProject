@@ -378,6 +378,8 @@ namespace ACProject.Forms
             try
             {
                 AppState.Instance = (AppState)formatter.Deserialize(stream);
+                _k = AppState.Instance.BoardBlocks.Count;
+                GenerateBoards();
             }
             catch (Exception exception)
             {
