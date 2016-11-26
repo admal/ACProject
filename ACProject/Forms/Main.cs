@@ -172,7 +172,7 @@ namespace ACProject.Forms
             {
                 AppState.Instance.BoardBlocks.Add(new List<IBoardBlock>());
 
-                if (i % onPageGridCount == 0)
+                if (i%onPageGridCount == 0)
                 {
                     var grid = new TableLayoutPanel
                     {
@@ -186,38 +186,48 @@ namespace ACProject.Forms
                             //new ColumnStyle(SizeType.Percent, 25)
                         },
                         RowStyles = {new RowStyle(SizeType.Percent, 100)},
-                        GrowStyle = TableLayoutPanelGrowStyle.FixedSize,
                         Dock = DockStyle.Fill
                     };
 
                     currentTab = new TabPage("tab");
-                    currentTab.Dock = DockStyle.Fill;
-                    
+
                     currentTab.Controls.Add(grid);
-                    currentTab.AutoScroll = true;
                     tabBoards.TabPages.Add(currentTab);
                 }
-                var currGrid = currentTab.Controls[0];
+                var currGrid = currentTab.Controls[0] as TableLayoutPanel;
+                currGrid.AutoScroll = true;
+                var panelWrapper = new FlowLayoutPanel();
+                //panelWrapper.AutoSize = true;
+                panelWrapper.AutoScroll = false;
+                panelWrapper.Anchor = AnchorStyles.Top | AnchorStyles.Left;
+                panelWrapper.VerticalScroll.Visible = true;
+                panelWrapper.Dock = DockStyle.Fill;
+                
+
                 var newBoard = new Panel
                 {
-                    Dock = DockStyle.Fill,
                     BackColor = Color.AntiqueWhite,
-                    BorderStyle = BorderStyle.FixedSingle
+                    BorderStyle = BorderStyle.FixedSingle,
+                    Height = 4000
                 };
                 newBoard.Tag = i;
                 newBoard.Paint += OnPaint;
-                newBoard.AutoScroll = true;
-                currGrid.Controls.Add(newBoard);
+
+                panelWrapper.Controls.Add(newBoard);
+
+                currGrid.Controls.Add(panelWrapper);
+                panelWrapper.AutoScroll = true; //need to reset it
             }
+
 
         }
 
         private void OnPaint(object sender, PaintEventArgs e)
         {
-            panelCanvas = tabBoards.Controls[0].Controls[0];
+            panelCanvas = tabBoards.Controls[0].Controls[0].Controls[0].Controls[0]; //trzbea coś z tym zrobić
             var control = sender as Control;
-            _cellSize = 5;// < (int)(control.Width / _width) ? 15 : (int)(control.Width / _width);
-
+            _cellSize = 10;// < (int)(control.Width / _width) ? 15 : (int)(control.Width / _width);
+            control.Width = (int)( _cellSize*_width);
             var graphics = e.Graphics;
 
             var cellSize = _cellSize;
@@ -305,12 +315,14 @@ namespace ACProject.Forms
             {
                 var steps = uint.Parse(tbJump.Text);
                 this.UseWaitCursor = true;
+                _computing = true;
                 for (int i = 0; i < steps; i++)
                 {
                     SimulationStep();
                 }
                 this.UseWaitCursor = false;
                 _simulationState = SimulationState.Paused;
+                _computing = false;
                 EnableButtons();                
             }
             catch (Exception)
@@ -326,8 +338,11 @@ namespace ACProject.Forms
             var nextBlock = AppState.Instance.Blocks.FirstOrDefault(x => x.Count != 0);
             if (nextBlock == null)
             {
-                MessageBoxService.ShowInfo("Computation ended!");
-                _computing = false;
+                if (_computing)
+                {
+                    MessageBoxService.ShowInfo("Computation ended!");
+                    _computing = false;
+                }
                 return;
             }
             nextBlock.Count--;

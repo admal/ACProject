@@ -104,7 +104,7 @@ namespace ACProject.Domain.Models
                         if (this.Grid[i, j] == 1)
                         {
                             var rect = new Rectangle((Position.X + width - i - 1) * cellSize + 1,
-                                containerHeight - cellSize * (Position.Y + height - j) - 1, 
+                                containerHeight - cellSize * (Position.Y + height - j) + 1, 
                                 cellSize - 1,
                                 cellSize - 1);
 
