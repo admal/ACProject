@@ -49,6 +49,8 @@
             this.btnJump = new System.Windows.Forms.Button();
             this.tabBoards = new System.Windows.Forms.TabControl();
             this.backgroundWorker = new System.ComponentModel.BackgroundWorker();
+            this.label1 = new System.Windows.Forms.Label();
+            this.tbDensity = new System.Windows.Forms.TextBox();
             this.menuStrip1.SuspendLayout();
             this.panelButtons.SuspendLayout();
             this.SuspendLayout();
@@ -66,21 +68,21 @@
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
             this.saveToolStripMenuItem.Text = "Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
             // loadToolStripMenuItem
             // 
             this.loadToolStripMenuItem.Name = "loadToolStripMenuItem";
-            this.loadToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.loadToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
             this.loadToolStripMenuItem.Text = "Load";
             this.loadToolStripMenuItem.Click += new System.EventHandler(this.loadToolStripMenuItem_Click);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(100, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             // 
             // blocksToolStripMenuItem
@@ -105,7 +107,7 @@
             this.blocksToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(922, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1134, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -181,10 +183,12 @@
             this.panelButtons.Controls.Add(this.btnApply);
             this.panelButtons.Controls.Add(this.tbJump);
             this.panelButtons.Controls.Add(this.btnJump);
+            this.panelButtons.Controls.Add(this.label1);
+            this.panelButtons.Controls.Add(this.tbDensity);
             this.panelButtons.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panelButtons.Location = new System.Drawing.Point(0, 533);
             this.panelButtons.Name = "panelButtons";
-            this.panelButtons.Size = new System.Drawing.Size(922, 33);
+            this.panelButtons.Size = new System.Drawing.Size(1134, 33);
             this.panelButtons.TabIndex = 1;
             // 
             // lblK
@@ -239,18 +243,37 @@
             this.tabBoards.Location = new System.Drawing.Point(0, 24);
             this.tabBoards.Name = "tabBoards";
             this.tabBoards.SelectedIndex = 0;
-            this.tabBoards.Size = new System.Drawing.Size(922, 509);
+            this.tabBoards.Size = new System.Drawing.Size(1134, 509);
             this.tabBoards.TabIndex = 2;
             // 
             // backgroundWorker
             // 
             this.backgroundWorker.DoWork += new System.ComponentModel.DoWorkEventHandler(this.DoBackgroundWork);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label1.Location = new System.Drawing.Point(910, 0);
+            this.label1.Name = "label1";
+            this.label1.Padding = new System.Windows.Forms.Padding(5);
+            this.label1.Size = new System.Drawing.Size(93, 35);
+            this.label1.TabIndex = 12;
+            this.label1.Text = "Density:";
+            // 
+            // tbDensity
+            // 
+            this.tbDensity.Enabled = false;
+            this.tbDensity.Location = new System.Drawing.Point(1009, 3);
+            this.tbDensity.Name = "tbDensity";
+            this.tbDensity.Size = new System.Drawing.Size(45, 20);
+            this.tbDensity.TabIndex = 13;
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(922, 566);
+            this.ClientSize = new System.Drawing.Size(1134, 566);
             this.Controls.Add(this.tabBoards);
             this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.panelButtons);
@@ -289,5 +312,7 @@
         private System.ComponentModel.BackgroundWorker backgroundWorker;
         private System.Windows.Forms.TextBox tbJump;
         private System.Windows.Forms.Button btnJump;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox tbDensity;
     }
 }
