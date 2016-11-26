@@ -16,7 +16,7 @@ namespace ACProject.Domain.Models
 
         public BoardBlock(IBoardBlock block) : base(block)
         {
-            this.Position = block.Position;
+            this.Position = new Point(block.Position.X, block.Position.Y);
         }
 
         public BoardBlock(IBlock block, Point position) : base(block.Grid)

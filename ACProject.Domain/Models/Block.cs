@@ -17,8 +17,8 @@ namespace ACProject.Domain.Models
 
         public Block(IBlock block)
         {
-            this.Color = block.Color;
-            this.Grid = block.Grid;
+            this.Color = Color.FromArgb(block.Color.ToArgb());
+            this.Grid = (int[,]) block.Grid.Clone();
         }
 
         public Block(int width, int height)
