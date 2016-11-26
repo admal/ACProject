@@ -34,7 +34,10 @@
             this.tbFilePath = new System.Windows.Forms.TextBox();
             this.btnLoadFile = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
-            this.panelBlocksOverview = new System.Windows.Forms.FlowLayoutPanel();
+            this.blocksPanel = new System.Windows.Forms.FlowLayoutPanel();
+            this.label2 = new System.Windows.Forms.Label();
+            this.tbBlocksCount = new System.Windows.Forms.TextBox();
+            this.btnApply = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
@@ -44,7 +47,7 @@
             this.tableLayoutPanel1.ColumnCount = 1;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.Controls.Add(this.flowLayoutPanel1, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.panelBlocksOverview, 0, 1);
+            this.tableLayoutPanel1.Controls.Add(this.blocksPanel, 0, 1);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -60,6 +63,9 @@
             this.flowLayoutPanel1.Controls.Add(this.tbFilePath);
             this.flowLayoutPanel1.Controls.Add(this.btnLoadFile);
             this.flowLayoutPanel1.Controls.Add(this.btnSave);
+            this.flowLayoutPanel1.Controls.Add(this.label2);
+            this.flowLayoutPanel1.Controls.Add(this.tbBlocksCount);
+            this.flowLayoutPanel1.Controls.Add(this.btnApply);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 3);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
@@ -105,14 +111,41 @@
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.SaveAndExit);
             // 
-            // panelBlocksOverview
+            // blocksPanel
             // 
-            this.panelBlocksOverview.AutoScroll = true;
-            this.panelBlocksOverview.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelBlocksOverview.Location = new System.Drawing.Point(3, 43);
-            this.panelBlocksOverview.Name = "panelBlocksOverview";
-            this.panelBlocksOverview.Size = new System.Drawing.Size(1066, 709);
-            this.panelBlocksOverview.TabIndex = 1;
+            this.blocksPanel.AutoScroll = true;
+            this.blocksPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.blocksPanel.Location = new System.Drawing.Point(3, 43);
+            this.blocksPanel.Name = "blocksPanel";
+            this.blocksPanel.Size = new System.Drawing.Size(1066, 709);
+            this.blocksPanel.TabIndex = 1;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.label2.Location = new System.Drawing.Point(886, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(67, 20);
+            this.label2.TabIndex = 4;
+            this.label2.Text = "blocks #";
+            // 
+            // tbBlocksCount
+            // 
+            this.tbBlocksCount.Location = new System.Drawing.Point(959, 3);
+            this.tbBlocksCount.Name = "tbBlocksCount";
+            this.tbBlocksCount.Size = new System.Drawing.Size(58, 20);
+            this.tbBlocksCount.TabIndex = 5;
+            // 
+            // btnApply
+            // 
+            this.btnApply.Location = new System.Drawing.Point(3, 32);
+            this.btnApply.Name = "btnApply";
+            this.btnApply.Size = new System.Drawing.Size(75, 23);
+            this.btnApply.TabIndex = 6;
+            this.btnApply.Text = "Apply";
+            this.btnApply.UseVisualStyleBackColor = true;
+            this.btnApply.MouseClick += new System.Windows.Forms.MouseEventHandler(this.ApplyBlocksCount);
             // 
             // Overview
             // 
@@ -137,7 +170,10 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox tbFilePath;
         private System.Windows.Forms.Button btnLoadFile;
-        private System.Windows.Forms.FlowLayoutPanel panelBlocksOverview;
+        private System.Windows.Forms.FlowLayoutPanel blocksPanel;
         private System.Windows.Forms.Button btnSave;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.TextBox tbBlocksCount;
+        private System.Windows.Forms.Button btnApply;
     }
 }

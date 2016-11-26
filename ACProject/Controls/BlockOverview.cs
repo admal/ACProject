@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using ACProject.Domain.Models;
+using ACProject.Interfaces;
 using ACProject.UIHelpers;
 
 namespace ACProject.Controls
@@ -16,11 +17,13 @@ namespace ACProject.Controls
     {
         private IBlock _block;
         private int _maxBlockWidth;
-        public BlockOverview(IBlock block, int maxBlockWidth)
+        private readonly IUpdateableForm _form;
+        public BlockOverview(IBlock block, int maxBlockWidth, IUpdateableForm form)
         {
             InitializeComponent();
             _block = block;
             _maxBlockWidth = maxBlockWidth;
+            _form = form;
             tbBlocksCount.Text = block.Count.ToString();
         }
 
@@ -37,6 +40,7 @@ namespace ACProject.Controls
             {
                 var count = int.Parse(input);
                 _block.Count = count;
+                _form.UpdateForm();
             }
             catch (FormatException)
             {

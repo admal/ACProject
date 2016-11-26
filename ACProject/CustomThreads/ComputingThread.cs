@@ -13,7 +13,7 @@ namespace ACProject.CustomThreads
         private int _k;
         private IList<IBoardBlock> _blocks;
         private int _width;
-        private IGridForm _form;
+        private IUpdateableForm _form;
 
         //public ComputingThread(int k, IList<IBoardBlock> blocks, int width, IGridForm form)
         //{
@@ -30,7 +30,7 @@ namespace ACProject.CustomThreads
             Debug.WriteLine("Clearing blocks...");
             //_blocks.Clear();
             Debug.WriteLine("Invoke...");
-            _form.InvokeEx(f => f.UpdateGrid());
+            _form.InvokeEx(f => f.UpdateForm());
         }
 
         public void PauseComputations()

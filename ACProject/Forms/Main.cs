@@ -29,7 +29,7 @@ namespace ACProject.Forms
         Paused
     }
 
-    public partial class Main : Form, IGridForm
+    public partial class Main : Form, IUpdateableForm
     {
         private Control panelCanvas;
         private SimulationState _simulationState = SimulationState.NotStarted;
@@ -280,7 +280,7 @@ namespace ACProject.Forms
             EnableButtons();
         }
         
-        public void UpdateGrid()
+        public void UpdateForm()
         {
             panelCanvas.Invalidate(true);
         }
@@ -351,7 +351,7 @@ namespace ACProject.Forms
                 
             }
 
-            this.InvokeEx(f => f.UpdateGrid());
+            this.InvokeEx(f => f.UpdateForm());
         }
 
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
@@ -386,7 +386,7 @@ namespace ACProject.Forms
                 UIHelpers.MessageBoxService.ShowError(exception.Message);
             }
             stream.Close();
-            UpdateGrid();
+            UpdateForm();
         }
     }
 }

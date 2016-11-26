@@ -68,7 +68,7 @@
     <Compile Include="Forms\Overview.Designer.cs">
       <DependentUpon>Overview.cs</DependentUpon>
     </Compile>
-    <Compile Include="Interfaces\IGridForm.cs" />
+    <Compile Include="Interfaces\IUpdateableForm.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UIHelpers\MessageBoxService.cs" />

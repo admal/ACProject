@@ -9,11 +9,12 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using ACProject.Controls;
 using ACProject.Domain.Models;
+using ACProject.Interfaces;
 using ACProject.UIHelpers;
 
 namespace ACProject.Forms
 {
-    public partial class Overview : Form
+    public partial class Overview : Form, IUpdateableForm
     {
         private IList<IBlock> _blocks;
         public Overview()
@@ -27,22 +28,24 @@ namespace ACProject.Forms
 
             foreach (var block in _blocks)
             {
-                var blockOverviewControl = new BlockOverview(block, AppState.Instance.MaxBlockSize);
+                var blockOverviewControl = new BlockOverview(block, AppState.Instance.MaxBlockSize, this);
                 // var tab = new TabPage("tab" +count);
-                panelBlocksOverview.Controls.Add(blockOverviewControl);
+                blocksPanel.Controls.Add(blockOverviewControl);
                 count++;
             }
+
+            tbBlocksCount.Text = _blocks.Sum(b => b.Count).ToString();
         }
 
         private void Draw()
         {
-            panelBlocksOverview.Controls.Clear();
+            blocksPanel.Controls.Clear();
             var count = 0;
             foreach (var block in _blocks)
             {
-                var blockOverviewControl = new BlockOverview(block, AppState.Instance.MaxBlockSize);
+                var blockOverviewControl = new BlockOverview(block, AppState.Instance.MaxBlockSize, this);
                 // var tab = new TabPage("tab" +count);
-                panelBlocksOverview.Controls.Add(blockOverviewControl);
+                blocksPanel.Controls.Add(blockOverviewControl);
                 count++;
             }
         }
@@ -76,6 +79,36 @@ namespace ACProject.Forms
         private void SaveAndExit(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        public void UpdateForm()
+        {
+            tbBlocksCount.Text = _blocks.Sum(b => b.Count).ToString();
+        }
+
+        private void ApplyBlocksCount(object sender, MouseEventArgs e)
+        {
+            try
+            {
+                var count = uint.Parse(tbBlocksCount.Text);
+
+                var countPerBlock = count/_blocks.Count;
+                var rest = count%_blocks.Count;
+                foreach (var block in _blocks)
+                {
+                    block.Count = (int) countPerBlock;
+                    if (rest > 0)
+                    {
+                        block.Count++;
+                        rest--;
+                    }
+                }
+                Draw();
+            }
+            catch (Exception)
+            {
+                MessageBoxService.ShowError("Provide positive number!");
+            }
         }
     }
 }
