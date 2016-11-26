@@ -15,6 +15,12 @@ namespace ACProject.Domain.Models
         private static readonly Random rnd = new Random();
         private int[,] _grid;
 
+        public Block(IBlock block)
+        {
+            this.Color = block.Color;
+            this.Grid = block.Grid;
+        }
+
         public Block(int width, int height)
         {
             Color = Color.FromArgb(rnd.Next(0, 255), rnd.Next(0, 255), rnd.Next(0, 255));

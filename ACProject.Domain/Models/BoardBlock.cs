@@ -14,6 +14,11 @@ namespace ACProject.Domain.Models
     {
         public Point Position { get; set; }
 
+        public BoardBlock(IBoardBlock block) : base(block)
+        {
+            this.Position = block.Position;
+        }
+
         public BoardBlock(IBlock block, Point position) : base(block.Grid)
         {
             this.Color = block.Color;
