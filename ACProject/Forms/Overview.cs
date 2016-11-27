@@ -86,22 +86,14 @@ namespace ACProject.Forms
             tbBlocksCount.Text = _blocks.Sum(b => b.Count).ToString();
         }
 
-        private void ApplyBlocksCount(object sender, MouseEventArgs e)
+        private void ApplyBlocksCount(object sender, EventArgs e)
         {
             try
             {
-                var count = uint.Parse(tbBlocksCount.Text);
-
-                var countPerBlock = count/_blocks.Count;
-                var rest = count%_blocks.Count;
+                var count = uint.Parse(tbPerBlockCount.Text);
                 foreach (var block in _blocks)
                 {
-                    block.Count = (int) countPerBlock;
-                    if (rest > 0)
-                    {
-                        block.Count++;
-                        rest--;
-                    }
+                    block.Count = (int) count;
                 }
                 Draw();
             }

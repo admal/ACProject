@@ -2,12 +2,9 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Deployment.Application;
 using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using ACProject.UIHelpers;
 using System.IO;
@@ -15,7 +12,6 @@ using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Threading;
 using ACProject.Algorithm;
-using ACProject.CustomThreads;
 using ACProject.Domain.Models;
 using ACProject.Extensions;
 using ACProject.Interfaces;
@@ -31,13 +27,13 @@ namespace ACProject.Forms
 
     public partial class Main : Form, IUpdateableForm
     {
-        private Control panelCanvas;
+        private Control _panelCanvas;
         private SimulationState _simulationState = SimulationState.NotStarted;
         private int _cellSize;
         private uint _width;
         private int _k;
         private bool _computing = false;
-        private IFormatter formatter;
+        private readonly IFormatter _formatter;
         public Main()
         {
             InitializeComponent();
@@ -49,7 +45,7 @@ namespace ACProject.Forms
             AppState.Instance.BoardBlocks = new List<IList<IBoardBlock>>();
             AppState.Instance.BoardBlocks.Add(new List<IBoardBlock>());
             _k = 1;
-            formatter = new BinaryFormatter();
+            _formatter = new BinaryFormatter();
             tbK.Text = _k.ToString();
             InitGrid();
             EnableButtons();
@@ -115,7 +111,7 @@ namespace ACProject.Forms
                 }
                 tbWidth.Text = AppState.Instance.Width.ToString();
                 _width = AppState.Instance.Width;
-                panelCanvas = tabBoards.Controls[0].Controls[0];
+                _panelCanvas = tabBoards.Controls[0].Controls[0];
 
                 AppState.Instance.Solver = new Solver(AppState.Instance.Blocks.Select(b => new MultipleBlock()
                 {
@@ -123,12 +119,12 @@ namespace ACProject.Forms
                     Block = new BoardBlock(b, new Point())
                 }).ToList(), (int)_width, _k);
                 //_cellSize = (int) (panelCanvas.Width/_width);
-               panelCanvas.Invalidate();
+               _panelCanvas.Invalidate();
             }
-            else
-            {
-                MessageBoxService.ShowError("Configuration not saved! You must stop simulation first!");
-            }
+            //else
+            //{
+            //    MessageBoxService.ShowError("Configuration not saved! You must stop simulation first!");
+            //}
 
         }
 
@@ -151,8 +147,8 @@ namespace ACProject.Forms
                 }).ToList(), (int)_width, _k);
 
                 _width = width;
-                _cellSize = (int)(panelCanvas.Width / _width);
-                panelCanvas.Invalidate();
+                _cellSize = (int)(_panelCanvas.Width / _width);
+                _panelCanvas.Invalidate();
             }
             catch (Exception)
             {
@@ -224,7 +220,7 @@ namespace ACProject.Forms
 
         private void OnPaint(object sender, PaintEventArgs e)
         {
-            panelCanvas = tabBoards.Controls[0].Controls[0].Controls[0].Controls[0]; //trzbea coś z tym zrobić
+            _panelCanvas = tabBoards.Controls[0].Controls[0].Controls[0].Controls[0]; //trzbea coś z tym zrobić
             var control = sender as Control;
             _cellSize = 10;// < (int)(control.Width / _width) ? 15 : (int)(control.Width / _width);
             control.Width = (int)( _cellSize*_width);
@@ -232,7 +228,7 @@ namespace ACProject.Forms
 
             var cellSize = _cellSize;
 
-            int viewHeight = panelCanvas.Height/cellSize;
+            int viewHeight = _panelCanvas.Height/cellSize;
             
 
             using (var pen = new Pen(Color.Black))
@@ -292,7 +288,7 @@ namespace ACProject.Forms
         
         public void UpdateForm()
         {
-            panelCanvas.Invalidate(true);
+            _panelCanvas.Invalidate(true);
         }
 
         private void DoBackgroundWork(object sender, DoWorkEventArgs e)
@@ -376,7 +372,7 @@ namespace ACProject.Forms
             Stream stream = new FileStream(file.FileName, FileMode.Create, FileAccess.Write, FileShare.None);
             try
             {
-                formatter.Serialize(stream, AppState.Instance);
+                _formatter.Serialize(stream, AppState.Instance);
             }
             catch (Exception exception)
             {
@@ -392,7 +388,7 @@ namespace ACProject.Forms
             Stream stream = new FileStream(file.FileName, FileMode.Open, FileAccess.Read, FileShare.None);
             try
             {
-                AppState.Instance = (AppState)formatter.Deserialize(stream);
+                AppState.Instance = (AppState)_formatter.Deserialize(stream);
                 _k = AppState.Instance.BoardBlocks.Count;
                 GenerateBoards();
             }

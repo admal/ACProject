@@ -54,7 +54,6 @@
     <Compile Include="Controls\BlockOverview.Designer.cs">
       <DependentUpon>BlockOverview.cs</DependentUpon>
     </Compile>
-    <Compile Include="CustomThreads\ComputingThread.cs" />
     <Compile Include="Extensions\ISynchronizeInvokeExtensions.cs" />
     <Compile Include="Forms\Main.cs">
       <SubType>Form</SubType>

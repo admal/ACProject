@@ -34,9 +34,11 @@
             this.tbFilePath = new System.Windows.Forms.TextBox();
             this.btnLoadFile = new System.Windows.Forms.Button();
             this.btnSave = new System.Windows.Forms.Button();
-            this.blocksPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.label2 = new System.Windows.Forms.Label();
             this.tbBlocksCount = new System.Windows.Forms.TextBox();
+            this.blocksPanel = new System.Windows.Forms.FlowLayoutPanel();
+            this.label3 = new System.Windows.Forms.Label();
+            this.tbPerBlockCount = new System.Windows.Forms.TextBox();
             this.btnApply = new System.Windows.Forms.Button();
             this.tableLayoutPanel1.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
@@ -54,7 +56,7 @@
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 40F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1072, 733);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1276, 733);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // flowLayoutPanel1
@@ -65,11 +67,13 @@
             this.flowLayoutPanel1.Controls.Add(this.btnSave);
             this.flowLayoutPanel1.Controls.Add(this.label2);
             this.flowLayoutPanel1.Controls.Add(this.tbBlocksCount);
+            this.flowLayoutPanel1.Controls.Add(this.label3);
+            this.flowLayoutPanel1.Controls.Add(this.tbPerBlockCount);
             this.flowLayoutPanel1.Controls.Add(this.btnApply);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 3);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(1066, 34);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(1270, 34);
             this.flowLayoutPanel1.TabIndex = 0;
             // 
             // label1
@@ -111,47 +115,65 @@
             this.btnSave.UseVisualStyleBackColor = true;
             this.btnSave.Click += new System.EventHandler(this.SaveAndExit);
             // 
-            // blocksPanel
-            // 
-            this.blocksPanel.AutoScroll = true;
-            this.blocksPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.blocksPanel.Location = new System.Drawing.Point(3, 43);
-            this.blocksPanel.Name = "blocksPanel";
-            this.blocksPanel.Size = new System.Drawing.Size(1066, 709);
-            this.blocksPanel.TabIndex = 1;
-            // 
             // label2
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
             this.label2.Location = new System.Drawing.Point(886, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(67, 20);
+            this.label2.Size = new System.Drawing.Size(40, 20);
             this.label2.TabIndex = 4;
-            this.label2.Text = "blocks #";
+            this.label2.Text = "total";
             // 
             // tbBlocksCount
             // 
-            this.tbBlocksCount.Location = new System.Drawing.Point(959, 3);
+            this.tbBlocksCount.Enabled = false;
+            this.tbBlocksCount.Location = new System.Drawing.Point(932, 3);
             this.tbBlocksCount.Name = "tbBlocksCount";
-            this.tbBlocksCount.Size = new System.Drawing.Size(58, 20);
+            this.tbBlocksCount.Size = new System.Drawing.Size(36, 20);
             this.tbBlocksCount.TabIndex = 5;
+            // 
+            // blocksPanel
+            // 
+            this.blocksPanel.AutoScroll = true;
+            this.blocksPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.blocksPanel.Location = new System.Drawing.Point(3, 43);
+            this.blocksPanel.Name = "blocksPanel";
+            this.blocksPanel.Size = new System.Drawing.Size(1270, 709);
+            this.blocksPanel.TabIndex = 1;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.label3.Location = new System.Drawing.Point(974, 0);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(77, 20);
+            this.label3.TabIndex = 7;
+            this.label3.Text = "per block:";
+            // 
+            // tbPerBlockCount
+            // 
+            this.tbPerBlockCount.Location = new System.Drawing.Point(1057, 3);
+            this.tbPerBlockCount.Name = "tbPerBlockCount";
+            this.tbPerBlockCount.Size = new System.Drawing.Size(49, 20);
+            this.tbPerBlockCount.TabIndex = 8;
             // 
             // btnApply
             // 
-            this.btnApply.Location = new System.Drawing.Point(3, 32);
+            this.btnApply.Location = new System.Drawing.Point(1112, 3);
             this.btnApply.Name = "btnApply";
             this.btnApply.Size = new System.Drawing.Size(75, 23);
-            this.btnApply.TabIndex = 6;
+            this.btnApply.TabIndex = 9;
             this.btnApply.Text = "Apply";
             this.btnApply.UseVisualStyleBackColor = true;
-            this.btnApply.MouseClick += new System.Windows.Forms.MouseEventHandler(this.ApplyBlocksCount);
+            this.btnApply.Click += new System.EventHandler(this.ApplyBlocksCount);
             // 
             // Overview
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1072, 733);
+            this.ClientSize = new System.Drawing.Size(1276, 733);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "Overview";
             this.Text = "Overview";
@@ -174,6 +196,8 @@
         private System.Windows.Forms.Button btnSave;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox tbBlocksCount;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.TextBox tbPerBlockCount;
         private System.Windows.Forms.Button btnApply;
     }
 }
