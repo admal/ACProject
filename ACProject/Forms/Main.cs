@@ -118,13 +118,8 @@ namespace ACProject.Forms
                     Count = b.Count,
                     Block = new BoardBlock(b, new Point())
                 }).ToList(), (int)_width, _k);
-                //_cellSize = (int) (panelCanvas.Width/_width);
                _panelCanvas.Invalidate();
             }
-            //else
-            //{
-            //    MessageBoxService.ShowError("Configuration not saved! You must stop simulation first!");
-            //}
 
         }
 
@@ -158,7 +153,7 @@ namespace ACProject.Forms
 
         private void GenerateBoards()
         {
-            int onPageGridCount = 3;
+            int onPageGridCount = 2;
 
             tabBoards.TabPages.Clear();
             tabBoards.Controls.Clear();
@@ -176,9 +171,9 @@ namespace ACProject.Forms
                         ColumnCount = onPageGridCount,
                         ColumnStyles =
                         {
-                            new ColumnStyle(SizeType.Percent, 33),
-                            new ColumnStyle(SizeType.Percent, 33),
-                            new ColumnStyle(SizeType.Percent, 33),
+                            new ColumnStyle(SizeType.Percent, 50),
+                            new ColumnStyle(SizeType.Percent, 50),
+                            //new ColumnStyle(SizeType.Percent, 33),
                             //new ColumnStyle(SizeType.Percent, 25)
                         },
                         RowStyles = {new RowStyle(SizeType.Percent, 100)},
