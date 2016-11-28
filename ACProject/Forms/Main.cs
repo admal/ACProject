@@ -310,10 +310,14 @@ namespace ACProject.Forms
                 var steps = uint.Parse(tbJump.Text);
                 this.UseWaitCursor = true;
                 _computing = true;
+                Stopwatch stopwatch = new Stopwatch();
+                stopwatch.Start();
                 for (int i = 0; i < steps; i++)
                 {
                     SimulationStep();
                 }
+                stopwatch.Stop();
+                MessageBoxService.ShowInfo("Elapsed: " + stopwatch.Elapsed);
                 this.UseWaitCursor = false;
                 _simulationState = SimulationState.Paused;
                 _computing = false;
