@@ -98,7 +98,6 @@
             this.Controls.Add(this.mainContainer);
             this.Name = "BlockOverview";
             this.Size = new System.Drawing.Size(504, 307);
-            this.Load += new System.EventHandler(this.OnLoad);
             this.mainContainer.ResumeLayout(false);
             this.panelButtons.ResumeLayout(false);
             this.panelButtons.PerformLayout();
