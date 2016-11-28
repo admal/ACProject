@@ -7,6 +7,9 @@ using System.Windows.Forms;
 
 namespace ACProject.UIHelpers
 {
+    /// <summary>
+    /// Service for handling message boxes.
+    /// </summary>
     public static class MessageBoxService
     {
         public static void ShowError(string message)

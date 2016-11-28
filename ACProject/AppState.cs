@@ -72,6 +72,10 @@ namespace ACProject
             }
         }
 
+        /// <summary>
+        /// Parse tile block and put information into configuration of the application
+        /// </summary>
+        /// <param name="filename"></param>
         public void LoadInitial(string filename)
         {
             this.Blocks.Clear();

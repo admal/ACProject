@@ -13,6 +13,9 @@ using ACProject.UIHelpers;
 
 namespace ACProject.Controls
 {
+    /// <summary>
+    /// Overview for a single block type
+    /// </summary>
     public partial class BlockOverview : UserControl
     {
         private IBlock _block;
@@ -25,11 +28,6 @@ namespace ACProject.Controls
             _maxBlockWidth = maxBlockWidth;
             _form = form;
             tbBlocksCount.Text = block.Count.ToString();
-        }
-
-        private void OnLoad(object sender, EventArgs e)
-        {
-            //this.Dock = DockStyle.Fill;
         }
 
         private void OnInputChange(object sender, EventArgs e)
@@ -54,8 +52,6 @@ namespace ACProject.Controls
             Graphics graphics = e.Graphics;
 
             var width = blockView.Width;
-
-            var blockWidth = _block.Grid.GetLength(0);
 
             int cellSize = width / _maxBlockWidth;
 

@@ -57,6 +57,9 @@ namespace ACProject.Forms
             GenerateBoards();
         }
 
+        /// <summary>
+        /// Enables and disables buttons due to state of the application.
+        /// </summary>
         private void EnableButtons()
         {
             switch (_simulationState)
@@ -160,7 +163,6 @@ namespace ACProject.Forms
             tabBoards.Controls.Clear();
 
             TabPage currentTab = null;
-            int scrollMax = 0;
             for (int i = 0; i < _k; i++)
             {
                 AppState.Instance.BoardBlocks.Add(new List<IBoardBlock>());
@@ -173,10 +175,7 @@ namespace ACProject.Forms
                         ColumnCount = onPageGridCount,
                         ColumnStyles =
                         {
-                            new ColumnStyle(SizeType.Percent, 100),
-                            //new ColumnStyle(SizeType.Percent, 50),
-                            //new ColumnStyle(SizeType.Percent, 33),
-                            //new ColumnStyle(SizeType.Percent, 25)
+                            new ColumnStyle(SizeType.Percent, 100)
                         },
                         RowStyles = {new RowStyle(SizeType.Percent, 100)},
                         Dock = DockStyle.Fill
@@ -214,6 +213,11 @@ namespace ACProject.Forms
             
         }
         
+        /// <summary>
+        /// Event handler to repaint tab.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void OnPaint(object sender, PaintEventArgs e)
         {
             _panelCanvas = tabBoards.Controls[0].Controls[0].Controls[0].Controls[0]; //trzbea coś z tym zrobić
@@ -282,13 +286,19 @@ namespace ACProject.Forms
             _simulationState = SimulationState.Paused;
             EnableButtons();
         }
-        
+        /// <summary>
+        /// Forces repainting all tabs and sets the density textbox
+        /// </summary>
         public void UpdateForm()
         {
             _panelCanvas.Invalidate(true);
             tbDensity.Text = _bestDensity.ToString();
         }
-
+        /// <summary>
+        /// Method started in the background
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void DoBackgroundWork(object sender, DoWorkEventArgs e)
         {
             while (_computing)
@@ -329,7 +339,9 @@ namespace ACProject.Forms
             }
             
         }
-
+        /// <summary>
+        /// Method does one step of the simulation.
+        /// </summary>
         private void SimulationStep()
         {
             var solver = AppState.Instance.Solver;
