@@ -9,30 +9,56 @@ using System.Threading.Tasks;
 
 namespace ACProject.Domain.Models
 {
+    /// <summary>
+    /// Default Block which is a non planar tile representation
+    /// </summary>
     [Serializable]
     public class Block : IBlock
     {
+        /// <summary>
+        /// random number generator for color creation
+        /// </summary>
         private static readonly Random rnd = new Random();
+        /// <summary>
+        /// Tile grid 
+        /// two dimensional array of 1's and 0's
+        /// 1 - there is a cell in a tile
+        /// 0 - there is no cell in a tile
+        /// </summary>
         private int[,] _grid;
-
+        /// <summary>
+        /// Block copy constructor
+        /// </summary>
+        /// <param name="block"> Block to be copied </param>
         public Block(IBlock block)
         {
             this.Color = Color.FromArgb(block.Color.ToArgb());
             this.Grid = (int[,]) block.Grid.Clone();
         }
-
+        /// <summary>
+        /// Creates Block with empty grid
+        /// </summary>
+        /// <param name="width"> width of a tile </param>
+        /// <param name="height"> height of a tile </param>
         public Block(int width, int height)
         {
             Color = Color.FromArgb(rnd.Next(0, 255), rnd.Next(0, 255), rnd.Next(0, 255));
             _grid =  new int[width, height];
         }
-
+        /// <summary>
+        /// Creates a Block from a tile grid
+        /// </summary>
+        /// <param name="grid"> Grid of a tile </param>
         public Block(int[,] grid)
         {
             Color = Color.FromArgb(rnd.Next(0, 255), rnd.Next(0, 255), rnd.Next(0, 255));
             _grid = grid;
             RemoveUselessRowsAndCols();
         }
+        /// <summary>
+        /// Removes useless rows and columns from a tile grid and resizes the block
+        /// When a block dimensions exceed the grid of a tile they are reduced to match it perfectly
+        /// </summary>
         private void RemoveUselessRowsAndCols()
         {
             int[] necessaryRows = new int[_grid.GetLength(1)]; // necessary grid rows
@@ -85,8 +111,13 @@ namespace ACProject.Domain.Models
             }
             _grid = newGrid;
         }
-
+        /// <summary>
+        /// Count of a type of a tile
+        /// </summary>
         public int Count { get; set; }
+        /// <summary>
+        /// Tile grid of a block
+        /// </summary>
         public int[,] Grid {
             get
             {
@@ -98,22 +129,19 @@ namespace ACProject.Domain.Models
                 RemoveUselessRowsAndCols();
             } 
         }
+        /// <summary>
+        /// Color of a Block
+        /// </summary>
         public Color Color { get; set; }
+        /// <summary>
+        /// Draws a tile in a given context
+        /// </summary>
+        /// <param name="graphics">Context for drawing</param>
+        /// <param name="cellSize">Size of each square cell of a tile in pixels</param>
         public virtual void Draw(Graphics graphics, int cellSize)
         {
             using (var brush = new SolidBrush(Color))
             {
-                //for (int i = 0; i < Grid.GetLength(1); i++)
-                //{
-                //    for (int j = 0; j < Grid.GetLength(0); j++)
-                //    {
-                //        if (this.Grid[j, i] == 1)
-                //        {
-                //            var rect = new Rectangle((cellSize * i) + 1, (cellSize * j) + 1, cellSize - 1, cellSize - 1);
-                //            graphics.FillRectangle(brush, rect);
-                //        }
-                //    }
-                //}
                 for (int i = 0; i < Grid.GetLength(0); i++)
                 {
                     for (int j = 0; j < Grid.GetLength(1); j++)
@@ -127,6 +155,12 @@ namespace ACProject.Domain.Models
                 }
             }
         }
+        /// <summary>
+        /// Draws a tile in a given context in container
+        /// </summary>
+        /// <param name="graphics">Context for drawing</param>
+        /// <param name="cellSize">Size of each square cell of a tile in pixels</param>
+        /// <param name="containerHeight">Height of a container we draw in pixels</param>
         public virtual void Draw(Graphics graphics, int cellSize, int containerHeight)
         {
             using (var brush = new SolidBrush(Color))
