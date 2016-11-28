@@ -146,7 +146,7 @@ namespace ACProject.Forms
                 _cellSize = (int)(_panelCanvas.Width / _width);
                 _panelCanvas.Invalidate();
             }
-            catch (Exception)
+            catch (FormatException)
             {
                 MessageBoxService.ShowError("Invalid operation!");
             }
@@ -160,6 +160,7 @@ namespace ACProject.Forms
             tabBoards.Controls.Clear();
 
             TabPage currentTab = null;
+            int scrollMax = 0;
             for (int i = 0; i < _k; i++)
             {
                 AppState.Instance.BoardBlocks.Add(new List<IBoardBlock>());
@@ -210,10 +211,9 @@ namespace ACProject.Forms
                 currGrid.Controls.Add(panelWrapper);
                 panelWrapper.AutoScroll = true; //need to reset it
             }
-
-
+            
         }
-
+        
         private void OnPaint(object sender, PaintEventArgs e)
         {
             _panelCanvas = tabBoards.Controls[0].Controls[0].Controls[0].Controls[0]; //trzbea coś z tym zrobić
@@ -363,7 +363,7 @@ namespace ACProject.Forms
                 }
                 
             }
-            _bestDensity = ret.Min(r => r.Density);
+            _bestDensity = ret.Max(r => r.Density);
             this.InvokeEx(f => f.UpdateForm());
         }
 
