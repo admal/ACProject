@@ -34,6 +34,7 @@ namespace ACProject.Forms
         private int _k;
         private bool _computing = false;
         private readonly IFormatter _formatter;
+        private double _bestDensity = -1d;
         public Main()
         {
             InitializeComponent();
@@ -153,7 +154,7 @@ namespace ACProject.Forms
 
         private void GenerateBoards()
         {
-            int onPageGridCount = 2;
+            int onPageGridCount = 1;
 
             tabBoards.TabPages.Clear();
             tabBoards.Controls.Clear();
@@ -171,8 +172,8 @@ namespace ACProject.Forms
                         ColumnCount = onPageGridCount,
                         ColumnStyles =
                         {
-                            new ColumnStyle(SizeType.Percent, 50),
-                            new ColumnStyle(SizeType.Percent, 50),
+                            new ColumnStyle(SizeType.Percent, 100),
+                            //new ColumnStyle(SizeType.Percent, 50),
                             //new ColumnStyle(SizeType.Percent, 33),
                             //new ColumnStyle(SizeType.Percent, 25)
                         },
@@ -275,6 +276,7 @@ namespace ACProject.Forms
         private void MoveOneStepSimulation(object sender, EventArgs e)
         {
             this.UseWaitCursor = true;
+            _computing = true;
             SimulationStep();
             this.UseWaitCursor = false;
             _simulationState = SimulationState.Paused;
@@ -284,6 +286,7 @@ namespace ACProject.Forms
         public void UpdateForm()
         {
             _panelCanvas.Invalidate(true);
+            tbDensity.Text = _bestDensity.ToString();
         }
 
         private void DoBackgroundWork(object sender, DoWorkEventArgs e)
@@ -326,8 +329,9 @@ namespace ACProject.Forms
         private void SimulationStep()
         {
             var solver = AppState.Instance.Solver;
-            var nextBlock = AppState.Instance.Blocks.FirstOrDefault(x => x.Count != 0);
-            if (nextBlock == null)
+            var ret = solver.GetNextMoves();
+
+            if (ret.Count == 0)
             {
                 if (_computing)
                 {
@@ -336,8 +340,7 @@ namespace ACProject.Forms
                 }
                 return;
             }
-            nextBlock.Count--;
-            var ret = solver.GetNextMoves(new BoardBlock(nextBlock, new Point()));
+                 
             for (int i = 0; i < ret.Count; i++)
             {
                 var move = ret[i];
@@ -356,7 +359,7 @@ namespace ACProject.Forms
                 }
                 
             }
-
+            _bestDensity = ret.Min(r => r.Density);
             this.InvokeEx(f => f.UpdateForm());
         }
 

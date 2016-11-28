@@ -24,7 +24,7 @@ namespace ACProject.Algorithm
             BoardStates.Add(new BoardState(Width, 0, blocks));
         }
 
-        public IList<Move> GetNextMoves(BoardBlock block)
+        public IList<Move> GetNextMoves()
         {
             List<Task<List<Move>>> tasks = new List<Task<List<Move>>>();
             foreach (var state in BoardStates)
