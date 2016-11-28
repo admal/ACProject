@@ -14,10 +14,10 @@ namespace ACProject.Algorithm
         public int Width { get; set; }
         private int[] Heights { get; set; }
 
-        private const double A = 0.6d;
-        private const double B = 0.3d;
-        private const double C = 0.9d;
-        private const double D = 3d;
+        private const double A = 0.1d; //aggHeight
+        private const double B = 0.1d; //bumpts
+        private const double C = 0.1d; //holes
+        private const double D = 2d; //height increase
         public int PlacedArea { get; set; } 
         public int K { get; set; }
         public IList<MultipleBlock> Blocks { get; set; }
