@@ -9,8 +9,8 @@ namespace ACProject.Algorithm
 {
     public class CheckMoveResult
     {
-        public double Cost { get; set; }
-        public int[] Heights { get; set; }
-        public Point Location { get; set; }
+        public double Cost { get; set; } //cost of the move
+        public int[] Heights { get; set; } //resulting heights of the toip of the well
+        public Point Location { get; set; } // cell in which the top left corner of the block should be placed
     }
 }

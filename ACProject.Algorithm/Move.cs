@@ -16,7 +16,7 @@ namespace ACProject.Algorithm
         public int Column { get; set; }
         public double Cost { get; set; }
         public int[] NewHeights { get; set; }
-        public int ListIndex { get; set; }
+        public int ListIndex { get; set; } //index of the block placed in the list of blocks
         public BoardState BoardState { get; set; }
         public  int PlacedArea {get; set;}
         public double Density { get; set; }

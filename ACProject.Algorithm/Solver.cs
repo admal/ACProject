@@ -36,7 +36,9 @@ namespace ACProject.Algorithm
                     tasks.Add(t);
                 }
             }
+            //run computation for each type of block and board in parallel
             Task.WaitAll(tasks.ToArray());
+            //wait for each task to complete
             List<Move> ret = new List<Move>();
             foreach(var t in tasks)
             {
@@ -44,6 +46,7 @@ namespace ACProject.Algorithm
             }
             ret = ret.OrderBy(x => x.Cost).Take(K).ToList();
             UpdateBoardStates(ret);
+            //find k best moves and update resulting board states
             return ret;
         }
 
