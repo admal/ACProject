@@ -18,10 +18,12 @@ namespace ACProject.Algorithm
         private const double B = 0.3d;
         private const double C = 0.9d;
         private const double D = 3d;
+        public int PlacedArea { get; set; } 
         public int K { get; set; }
         public IList<MultipleBlock> Blocks { get; set; }
         public BoardState(int width, int k)
         {
+            PlacedArea = 0;
             K = k;
             Width = width;
             Heights = new int[Width];
@@ -29,6 +31,7 @@ namespace ACProject.Algorithm
 
         public BoardState(int[] widths, int k)
         {
+            PlacedArea = 0;
             K = k;
             Width = widths.Length;
             Heights = widths;
@@ -36,11 +39,13 @@ namespace ACProject.Algorithm
 
         public BoardState(int[] heights, int k, IList<MultipleBlock> blocks) :this(heights,k)
         {
+            PlacedArea = 0;
             Blocks = blocks;
         }
 
         public BoardState( int width, int k, IList<MultipleBlock> blocks) : this(width, k)
         {
+            PlacedArea = 0;
             Blocks = blocks;
         }
 
@@ -56,7 +61,7 @@ namespace ACProject.Algorithm
                     {
                         var newBlock = new BoardBlock(block);
                         newBlock.Position = result.Location;
-                        ret.Add(new Move(newBlock, i, result.Cost, K, result.Heights, idx, this));
+                        ret.Add(new Move(newBlock, i, result.Cost, K, result.Heights, idx, this, PlacedArea+block.GetArea(), (PlacedArea + block.GetArea())/(double)(result.Heights.Max()*Width)));
                     }
                 }
                 block = block.RotateClockwise();

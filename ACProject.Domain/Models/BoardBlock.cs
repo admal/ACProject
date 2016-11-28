@@ -37,6 +37,11 @@ namespace ACProject.Domain.Models
             this.Position = position;
         }
 
+        public int GetArea()
+        {
+            return Grid.Cast<int>().Sum();
+        }
+
         public BoardBlock RotateClockwise()
         {
             

@@ -57,6 +57,7 @@ namespace ACProject.Algorithm
                 foreach (var block in move.BoardState.Blocks)
                     list.Add(new MultipleBlock(block));
                 var state = new BoardState(move.NewHeights, i, list);
+                state.PlacedArea = move.PlacedArea;
                 list[move.ListIndex].Count--;
                 if (list[move.ListIndex].Count <= 0)
                     list.RemoveAt(move.ListIndex);

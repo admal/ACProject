@@ -18,7 +18,9 @@ namespace ACProject.Algorithm
         public int[] NewHeights { get; set; }
         public int ListIndex { get; set; }
         public BoardState BoardState { get; set; }
-        public Move(BoardBlock block, int column, double cost, int board, int[] heights, int lidx, BoardState bs)
+        public  int PlacedArea {get; set;}
+        public double Density { get; set; }
+        public Move(BoardBlock block, int column, double cost, int board, int[] heights, int lidx, BoardState bs, int placedArea, double density)
         {
 
             Block = new BoardBlock(block.Grid.Clone() as int[,], new Point(block.Position.X, block.Position.Y));
@@ -28,6 +30,8 @@ namespace ACProject.Algorithm
             NewHeights = heights.Clone() as int[];
             ListIndex = lidx;
             BoardState = bs;
+            Density = density;
+            PlacedArea = placedArea;
         }
     }
 }
