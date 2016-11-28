@@ -1,11 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using ACProject.Controls;
 using ACProject.Domain.Models;
@@ -14,6 +9,9 @@ using ACProject.UIHelpers;
 
 namespace ACProject.Forms
 {
+    /// <summary>
+    /// Grid of block information.
+    /// </summary>
     public partial class Overview : Form, IUpdateableForm
     {
         private IList<IBlock> _blocks;
@@ -85,7 +83,11 @@ namespace ACProject.Forms
         {
             tbBlocksCount.Text = _blocks.Sum(b => b.Count).ToString();
         }
-
+        /// <summary>
+        /// Set for every block count given number.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void ApplyBlocksCount(object sender, EventArgs e)
         {
             try
