@@ -12,5 +12,15 @@ namespace ACProject.Algorithm
     {
         public BoardBlock Block { get; set; }
         public int Count { get; set; }
+
+        public MultipleBlock()
+        {
+
+        }
+        public MultipleBlock(MultipleBlock m)
+        {
+            Block = new BoardBlock(m.Block);
+            Count = m.Count;
+        }
     }
 }

@@ -52,7 +52,7 @@ namespace ACProject.Domain.Models
                 }
                 newRow++;
             }
-            BoardBlock block = new BoardBlock(newMatrix, Position);
+            BoardBlock block = new BoardBlock(newMatrix, new Point(Position.X, Position.Y));
             return block;
         }
 

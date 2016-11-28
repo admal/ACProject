@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace ACProject.Algorithm
 {
     [Serializable]
-    class BoardState
+    public class BoardState
     {
         public int Width { get; set; }
         private int[] Heights { get; set; }
@@ -34,7 +34,17 @@ namespace ACProject.Algorithm
             Heights = widths;
         }
 
-        public List<Move> CalculateTask(BoardBlock block)
+        public BoardState(int[] heights, int k, IList<MultipleBlock> blocks) :this(heights,k)
+        {
+            Blocks = blocks;
+        }
+
+        public BoardState( int width, int k, IList<MultipleBlock> blocks) : this(width, k)
+        {
+            Blocks = blocks;
+        }
+
+        public List<Move> CalculateTask(BoardBlock block, int idx)
         {
             List<Move> ret = new List<Move>();
             for (int j = 0; j < 4; j++)
@@ -44,8 +54,9 @@ namespace ACProject.Algorithm
                     var result = CheckMove(i, block);
                     if(result != null)
                     {
-                        block.Position = result.Location;
-                        ret.Add(new Move(block, i, result.Cost, K, result.Heights));
+                        var newBlock = new BoardBlock(block);
+                        newBlock.Position = result.Location;
+                        ret.Add(new Move(newBlock, i, result.Cost, K, result.Heights, idx, this));
                     }
                 }
                 block = block.RotateClockwise();
@@ -117,7 +128,7 @@ namespace ACProject.Algorithm
                 {
                     Cost = (A * aggHeight + B * bumps + C * holes + D * heightIncrease),
                     Heights = tempHeights,
-                    Location = new System.Drawing.Point(i, blockHeight -block.Grid.GetLength(1))
+                    Location = new System.Drawing.Point(i, blockHeight -block.Grid.GetLength(1)),
                 };
             }
             else

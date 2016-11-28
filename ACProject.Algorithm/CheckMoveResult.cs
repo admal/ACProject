@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ACProject.Algorithm
 {
-    class CheckMoveResult
+    public class CheckMoveResult
     {
         public double Cost { get; set; }
         public int[] Heights { get; set; }

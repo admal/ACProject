@@ -21,7 +21,7 @@ namespace ACProject.Algorithm
             Width = width;
             Blocks = blocks;
             BoardStates = new List<BoardState>();
-            BoardStates.Add(new BoardState(Width, 0));
+            BoardStates.Add(new BoardState(Width, 0, blocks));
         }
 
         public IList<Move> GetNextMoves(BoardBlock block)
@@ -29,8 +29,12 @@ namespace ACProject.Algorithm
             List<Task<List<Move>>> tasks = new List<Task<List<Move>>>();
             foreach (var state in BoardStates)
             {
-                Task<List<Move>> t = Task<List<Move>>.Factory.StartNew(() => state.CalculateTask(block));
-                tasks.Add(t);
+                for (int i=0; i< state.Blocks.Count; i++)
+                {
+                    int idx = i;
+                    Task<List<Move>> t = Task<List<Move>>.Factory.StartNew(() => state.CalculateTask(state.Blocks[idx].Block , idx));
+                    tasks.Add(t);
+                }
             }
             Task.WaitAll(tasks.ToArray());
             List<Move> ret = new List<Move>();
@@ -49,7 +53,14 @@ namespace ACProject.Algorithm
             int i = 0;
             foreach (var move in moves)
             {
-                BoardStates.Add(new BoardState(move.NewHeights, i));
+                var list = new List<MultipleBlock>();
+                foreach (var block in move.BoardState.Blocks)
+                    list.Add(new MultipleBlock(block));
+                var state = new BoardState(move.NewHeights, i, list);
+                list[move.ListIndex].Count--;
+                if (list[move.ListIndex].Count <= 0)
+                    list.RemoveAt(move.ListIndex);
+                BoardStates.Add(state);
                 i++;
             }
         }
